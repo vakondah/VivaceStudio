@@ -40,6 +40,11 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             var schoolInfo = _schoolInfoRepository.MySchoolInfo;
             return View(schoolInfo);
         }
+        public IActionResult Card()
+        {
+            return View();
+        }
+        
 
         
 
