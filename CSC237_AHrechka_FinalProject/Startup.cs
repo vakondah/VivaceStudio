@@ -25,6 +25,10 @@ namespace CSC237_AHrechka_FinalProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IUserRepository, MockUserRepository>();
+            services.AddScoped<ISchoolInfoRepository, MockSchoolInfoRepository>();
+            services.AddScoped<ISchoolRepository, MockSchoolRepository>();
+            services.AddScoped<IInstrumentRepository, MockInstrumentRepository>();
+            services.AddScoped<ITeacherRepository, MockTeacherRepository>();
             services.AddControllersWithViews();
         }
 

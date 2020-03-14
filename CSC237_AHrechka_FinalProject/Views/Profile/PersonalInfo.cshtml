@@ -1,69 +1,57 @@
 ﻿@model User
 
-    <div class="row">
-        <div class="col-3">
-            <div class="list-group">
-                <a asp-controller="" asp-action=""
-                   class="list-group-item">Profile Picture</a>
-                <a asp-controller="" asp-action=""
-                   class="list-group-item">School Info</a>
-                <a asp-controller="Profile" asp-action="PersonalInfo"
-                   class="list-group-item">Personal Info</a>
-                <a asp-controller="" asp-action=""
-                   class="list-group-item">Practice Log Settings</a>
-                <a asp-controller="" asp-action=""
-                   class="list-group-item">Chat Settings</a>
-                <a asp-controller="" asp-action=""
-                   class="list-group-item">Account Settings</a>
-            </div>
-        </div>
-        <div class="col-9">
-            <h4>Personal Info: <span>
-    <button class="btn btn-info btn-md text-justify action-button ml-5" type="submit">
-        View my Personal Card
-    </button>
-</span></h4>
-            <div class="form-group">
-                <label asp-for="FirstName">First Name:</label>
-                <input asp-for="FirstName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName">Last Name:</label>
-                <input asp-for="LastName" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth">Date of Birth:</label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="formCheck-1" checked />
-                    <label class="form-check-label" for="formCheck-1">Display on Personal Card</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="Bio">Bio:</label>
-            <textarea asp-for="Bio" class="form-control" name="message" placeholder="Enter your short bio..." rows="8"></textarea>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address">Address:</label>
-                <input asp-for="Address" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Email">Email:</label>
-                <input asp-for="Email" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone">Phone:</label>
-                <input asp-for="Phone" class="form-control" />
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="formCheck-1" checked />
-                    <label class="form-check-label" for="formCheck-1">Display on Personal Card</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <!-- <input type="hidden"  />-->
+@{
+    Layout = "_ProfileLayout";
+}
 
-                <button type="Submit" class="btn btn-primary">Save</button>
-                <a asp-action="PersonalInfo" class="btn btn-primary">Cancel</a>
-            </div>
+<div class="col-9">
+    <h4>
+        Personal Info: <span>
+            <button class="btn btn-info btn-md text-justify action-button ml-5" type="submit">
+                View my Personal Card
+            </button>
+        </span>
+    </h4>
+    <div class="form-group">
+        <label asp-for="FirstName">First Name:</label>
+        <input asp-for="FirstName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName">Last Name:</label>
+        <input asp-for="LastName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth">Date of Birth:</label>
+        <input asp-for="DateOfBirth" class="form-control" />
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="formCheck-1" checked />
+            <label class="form-check-label" for="formCheck-1">Display on Personal Card</label>
         </div>
     </div>
+    <div class="form-group">
+        <label asp-for="Bio">Bio:</label>
+        <textarea asp-for="Bio" class="form-control" name="message" placeholder="Enter your short bio..." rows="8"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address">Address:</label>
+        <input asp-for="Address" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone">Phone:</label>
+        <input asp-for="Phone" class="form-control" />
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="formCheck-1" checked />
+            <label class="form-check-label" for="formCheck-1">Display on Personal Card</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <!-- <input type="hidden"  />-->
+
+        <button type="Submit" class="btn btn-primary">Save</button>
+        <a asp-action="PersonalInfo" class="btn btn-primary">Cancel</a>
+    </div>
+</div>

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace CSC237_AHrechka_FinalProject.Models
 {
-    public interface IUserRepository
+    public interface ISchoolInfoRepository
     {
         // this property will be used only while working with mock repositories:
-        User MyUser { get; }
+        public SchoolInfo MySchoolInfo { get; }
 
 
-        IEnumerable<User> GetUsers { get; }
-        User GetUserById(int userId);
+        public IEnumerable<SchoolInfo> GetSchoolInfo { get; }
+        SchoolInfo GetSchoolInfoByStudentId(int studentId);
     }
 }

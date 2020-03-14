@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="row mt-5">
+    <div class="col-3">
+        <div class="list-group">
+            <a asp-controller="" asp-action=""
+               class="list-group-item">Profile Picture</a>
+            <a asp-controller="Profile" asp-action="SchoolInfo"
+               class="list-group-item">School Info</a>
+            <a asp-controller="Profile" asp-action="PersonalInfo"
+               class="list-group-item">Personal Info</a>
+            <a asp-controller="" asp-action=""
+               class="list-group-item">Practice Log Settings</a>
+            <a asp-controller="" asp-action=""
+               class="list-group-item">Chat Settings</a>
+            <a asp-controller="" asp-action=""
+               class="list-group-item">Account Settings</a>
+        </div>
+    </div>
+    @RenderBody()
+</div>
