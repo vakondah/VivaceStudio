@@ -16,7 +16,7 @@ namespace CSC237_AHrechka_FinalProject.Models
             MyClasses = "Guitar, piano, choir"
         };
 
-        public IEnumerable<SchoolInfo> GetSchoolInfo => throw new NotImplementedException();
+        public IEnumerable<SchoolInfo> GetSchoolInfo => throw new NotImplementedException();// will be added when seeding the db
 
         public SchoolInfo GetSchoolInfoByStudentId(int studentId)
         {

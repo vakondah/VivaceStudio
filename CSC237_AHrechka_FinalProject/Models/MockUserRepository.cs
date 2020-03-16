@@ -20,11 +20,11 @@ namespace CSC237_AHrechka_FinalProject.Models
             Phone = "970-777-7777"
         };
 
-        public IEnumerable<User> GetUsers => throw new NotImplementedException();
+        public IEnumerable<User> GetUsers => throw new NotImplementedException();// users will be added when seeding database
 
         public User GetUserById(int userId)
         {
-            throw new NotImplementedException();
+            return GetUsers.FirstOrDefault(u => u.UserID == userId);
         }
     }
 }

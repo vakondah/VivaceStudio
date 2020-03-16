@@ -7,7 +7,6 @@ namespace CSC237_AHrechka_FinalProject.Models
 {
     public interface ISchoolRepository
     {
-        School MySchool { get; }
         IEnumerable<School> GetSchools { get; }
         School GetSchoolById(int schoolId);
     }

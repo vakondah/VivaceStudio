@@ -14,7 +14,7 @@ namespace CSC237_AHrechka_FinalProject.Models
         public string  MockInstrument { get; set; }// will be deleted
         public int InstrumentID { get; set; }
         public Instrument Instrument { get; set; }
-        public string MockTeacher { get; set; }// // will be deleted
+        public string MockTeacher { get; set; }// will be deleted
         public int TeacherID { get; set; }
         public Teacher Teacher { get; set; }
         public string MyClasses { get; set; }

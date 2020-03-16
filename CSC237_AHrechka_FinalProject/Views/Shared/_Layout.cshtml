@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿<!--Main layout with nav bar and footer-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Vivace Studio</title>
+    <title>@ViewData["Title"] Vivace Studio</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -22,13 +23,26 @@
                 <div class="collapse navbar-collapse"
                      id="navcol-1">
                     <ul class="nav navbar-nav mr-auto">
-                        <li role="presentation" class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                        <li role="presentation" class="nav-item"><a class="nav-link active text-dark" href="#">Schools</a></li>
-                        <li role="presentation" class="nav-item"><a class="nav-link active text-dark" href="#">Chat</a></li>
-                        <li role="presentation" class="nav-item"><a class="nav-link active text-dark" href="#">Practice Log</a></li>
-                        <li role="presentation" class="nav-item"><a class="nav-link active text-dark" asp-controller="Profile" asp-action="PersonalInfo">My Profile</a></li>
-                        <li role="presentation" class="nav-item"><a class="nav-link text-dark" href="#">Contact Us</a></li>
-                    </ul><span class="navbar-text actions"><a class="btn btn-info action-button text-white" role="button" href="#">Sign Out</a></span>
+                        <li role="presentation" class="nav-item">
+                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <!--TODO:<li role="presentation" class="nav-item">
+    <a class="nav-link active text-dark" href="#">Schools</a>
+    </li>-->
+                        <li role="presentation" class="nav-item">
+                            <a class="nav-link active text-dark" asp-controller="Home" asp-action="Chat">Chat</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                            <a class="nav-link active text-dark" asp-controller="Home" asp-action="PracticeLog">Practice Log</a>
+                        </li>
+                        <li role="presentation" class="nav-item">
+                        <a class="nav-link active text-dark" asp-controller="Profile" asp-action="PersonalInfo">My Profile</a>
+                        </li>
+                        <!--<li role="presentation" class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>-->
+                    </ul>
+                    <span class="navbar-text actions">
+                    <a class="btn btn-info action-button text-white" role="button" href="#">Sign Out</a>
+                    </span>
                 </div>
             </div>
         </nav>

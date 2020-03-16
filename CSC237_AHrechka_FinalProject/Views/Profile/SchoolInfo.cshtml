@@ -5,49 +5,50 @@
     Layout = "_ProfileLayout";
 }
 
-    <div class=" col-9">
-        <h4>School Info</h4>
-        <div class="form-group">
-            <label asp-for="StudentID">Student Number:</label>
-            <input asp-for="StudentID" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="SchoolID">Choose your school:</label>
-            <select asp-for="SchoolID" class="form-control">
-                <option value="">@Model.MockSchoolName</option>
-                @foreach (School s in ViewBag.Schools)
-                {
-                    <option value="@s.SchoolID">@s.SchoolName</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <label asp-for="InstrumentID">Choose your instrument:</label>
-            <select asp-for="InstrumentID" class="form-control">
-                <option value="">@Model.MockInstrument</option>
-                @foreach (Instrument i in ViewBag.Instruments)
-                {
-                    <option value="@i.InstrumentID">@i.InstrumentName</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <label asp-for="TeacherID">Choose your teacher:</label>
-            <select asp-for="TeacherID" class="form-control">
-                <option value="">@Model.MockTeacher</option>
-                @foreach (Teacher t in ViewBag.Teachers)
-                {
-                    <option value="@t.TeacherID">@t.FullName</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <label asp-for="MyClasses">List your classes:</label>
-            <input asp-for="MyClasses" class="form-control" />
-        </div>
-        <div class="form-group">
-            <!-- <input type="hidden"  />-->
-            <button type="Submit" class="btn btn-primary">Save</button>
-            <a asp-action="SchoolInfo" class="btn btn-primary">Cancel</a>
-        </div>
+
+<div class=" col-9">
+    <h4>School Info:</h4><br />
+    <div class="form-group">
+        <label asp-for="StudentID">Student Number:</label>
+        <input asp-for="StudentID" class="form-control" />
     </div>
+    <div class="form-group">
+        <label asp-for="SchoolID">Choose your school:</label>
+        <select asp-for="SchoolID" class="form-control">
+            <option value="">@Model.MockSchoolName</option>
+            @foreach (School s in ViewBag.Schools)
+            {
+                <option value="@s.SchoolID">@s.SchoolName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="InstrumentID">Choose your instrument:</label>
+        <select asp-for="InstrumentID" class="form-control">
+            <option value="">@Model.MockInstrument</option>
+            @foreach (Instrument i in ViewBag.Instruments)
+            {
+                <option value="@i.InstrumentID">@i.InstrumentName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="TeacherID">Choose your teacher:</label>
+        <select asp-for="TeacherID" class="form-control">
+            <option value="">@Model.MockTeacher</option>
+            @foreach (Teacher t in ViewBag.Teachers)
+            {
+                <option value="@t.TeacherID">@t.FullName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="MyClasses">List your classes:</label>
+        <input asp-for="MyClasses" class="form-control" />
+    </div>
+    <div class="form-group">
+        <!-- <input type="hidden"  />-->
+        <button type="Submit" class="btn btn-primary">Save</button>
+        <a asp-action="SchoolInfo" class="btn btn-primary">Cancel</a>
+    </div>
+</div>

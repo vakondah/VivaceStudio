@@ -1,4 +1,4 @@
-﻿
+﻿@model User
 
 @{
     ViewData["Title"] = "Personal Card";
@@ -9,25 +9,32 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-sm-12 col-md-6 col-lg-4">
-                    <button asp-controller="Profile" asp-action="PersonalInfo"
-                            class="close text-right text-white d-none d-sm-inline d-md-none d-lg-none d-xl-none">
-              
-                        <span aria-hidden="true">×</span>
-                    </button>
-                    <img src="crow.png" /></div>
+                        <a asp-action="PersonalInfo"
+                                class="close text-right text-white d-none d-sm-inline d-md-none d-lg-none d-xl-none m-3">
+                            <span aria-hidden="true">×</span>
+                        </a>
+                        <img src="~/Pictures/crow.png" />
+                    </div>
                     <div class="col-sm-12 col-md-6 col-lg-8 text-center">
                         <div class="row">
-                            <div class="col"><button class="close text-right text-white d-none d-sm-none d-md-inline d-lg-inline d-xl-inline"><span aria-hidden="true">×</span></button></div>
+                            <div class="col">
+                            <a asp-action="PersonalInfo" 
+                               class="close text-right text-white d-none d-sm-none d-md-inline d-lg-inline d-xl-inline m-4">
+                                <span aria-hidden="true">×</span>
+                            </a>
+                            </div>
                         </div>
                         <div>
-                            <h1 class="text-center" style="padding: 0;">Aliaksandra Hrechka</h1>
+                            <h1 class="text-center">@Model.FullName
+                                 
+                            </h1>
                         </div>
                         <div>
                             <h3>Student</h3>
                         </div>
                         <div class="form-group">
-                            <button type="Submit" class="btn btn-primary">Message</button>
-                            <a asp-action="" class="btn btn-primary">Email</a>
+                            <a asp-controller="Home" asp-action="Chat" class="btn btn-primary m-3">Message</a>
+                            <a href="mailto:@Model.Email" class="btn btn-primary">Email</a>
                         </div>
                         <div></div>
                     </div>
@@ -42,10 +49,8 @@
                     <h5 class="mb-0">Bio</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">
-                        Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.<br />Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo
-                        odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.<br /><br />Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec
-                        id elit non mi porta gravida at eget metus.<br /><br />
+                    <p class="card-text">@Model.Bio
+                        <br /><br />
                     </p>
                 </div>
             </div>
@@ -56,7 +61,7 @@
                     <h5 class="mb-0">School</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Harmony School of Music</p>
+                    <p class="card-text">Placeholder</p>
                 </div>
             </div>
             <div class="card">
@@ -64,7 +69,7 @@
                     <h5 class="mb-0">Instrument</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Guitar</p>
+                    <p class="card-text">Placeholder</p>
                 </div>
             </div>
             <div class="card">
@@ -72,7 +77,7 @@
                     <h5 class="mb-0">Classes</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Guitar, Piano, Orchestra</p>
+                    <p class="card-text">Placeholder</p>
                 </div>
             </div>
             <div class="card">
@@ -80,7 +85,7 @@
                     <h5 class="mb-0">Age</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Hidden</p>
+                    <p class="card-text">@Model.Age</p>
                 </div>
             </div>
             <div class="card">
@@ -88,7 +93,7 @@
                     <h5 class="mb-0">Phone Number</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">(303) 223 3333</p>
+                    <p class="card-text">@Model.Phone</p>
                 </div>
             </div>
         </div>

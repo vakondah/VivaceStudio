@@ -7,7 +7,6 @@ namespace CSC237_AHrechka_FinalProject.Models
 {
     public class MockSchoolRepository : ISchoolRepository
     {
-        public School MySchool => throw new NotImplementedException();
 
         public IEnumerable<School> GetSchools => 
             new List<School>
