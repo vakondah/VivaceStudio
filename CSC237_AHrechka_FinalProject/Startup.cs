@@ -14,6 +14,7 @@ namespace CSC237_AHrechka_FinalProject
 {
     public class Startup
     {
+        // Loading configuration settings:
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,15 +22,17 @@ namespace CSC237_AHrechka_FinalProject
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // telling app to use mock repositories:
             services.AddScoped<IUserRepository, MockUserRepository>();
             services.AddScoped<ISchoolInfoRepository, MockSchoolInfoRepository>();
             services.AddScoped<ISchoolRepository, MockSchoolRepository>();
             services.AddScoped<IInstrumentRepository, MockInstrumentRepository>();
             services.AddScoped<ITeacherRepository, MockTeacherRepository>();
+
             services.AddControllersWithViews();
+            // makes URL lowercase with trailing slashes
             services.AddRouting(options =>
             {
                 options.LowercaseUrls = true;
@@ -40,6 +43,7 @@ namespace CSC237_AHrechka_FinalProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // if statement is checking if we are running in development mode:
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -9,6 +9,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 {
     public class ProfileController : Controller
     {
+        // private fields for repositories:
         private readonly IUserRepository _userRepository;
         private readonly ISchoolInfoRepository _schoolInfoRepository;
         private readonly ISchoolRepository _schoolRepository;
