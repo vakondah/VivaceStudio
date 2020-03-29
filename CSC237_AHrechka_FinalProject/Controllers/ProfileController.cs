@@ -53,9 +53,15 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
         // opens profile picture view:
         [Route("Profile/Picture")]
-        public IActionResult ProfilePicture()
+        public IActionResult ProfilePicture(int id = 2)
         {
-            return View();
+            var user = context.Users
+               .FirstOrDefault(i => i.UserID == id);
+            Image img = context.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
+            string imageBase64Data = Convert.ToBase64String(img.ImageData);
+            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+            ViewBag.ImageDataUrl = imageDataURL;
+            return View(user);
         }
 
         [HttpPost]
@@ -83,6 +89,11 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 context.Images.Update(image);
                 context.SaveChanges();
             }
+
+            Image img = context.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
+            string imageBase64Data = Convert.ToBase64String(img.ImageData);
+            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+            ViewBag.ImageDataUrl = imageDataURL;
 
             return View("ProfilePicture");
         }

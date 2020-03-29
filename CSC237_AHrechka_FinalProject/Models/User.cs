@@ -20,7 +20,6 @@ namespace CSC237_AHrechka_FinalProject.Models
         public int StudentNumber { get; set; }
         public string MyClasses { get; set; }
         
-        //public int ImageID { get; set; }
         public Image Image { get; set; }
         public int SchoolID { get; set; }
         public School School { get; set; }

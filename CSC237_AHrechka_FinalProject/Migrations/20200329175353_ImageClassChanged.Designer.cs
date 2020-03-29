@@ -4,14 +4,16 @@ using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSC237_AHrechka_FinalProject.Migrations
 {
     [DbContext(typeof(VivaceContext))]
-    partial class VivaceContextModelSnapshot : ModelSnapshot
+    [Migration("20200329175353_ImageClassChanged")]
+    partial class ImageClassChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

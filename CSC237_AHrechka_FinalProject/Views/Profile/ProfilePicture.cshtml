@@ -6,7 +6,7 @@
 
 <div class="col-9">
     <h4>Profile Picture:</h4>
-    <img src="~/Pictures/bigpicture.jpg" />
+    <img src="@ViewBag.ImageDataUrl" />
     
     <form asp-action="SaveImage" method="post" asp-controller="Profile"
           enctype="multipart/form-data">
