@@ -6,6 +6,7 @@ using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,12 +25,9 @@ namespace CSC237_AHrechka_FinalProject
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // telling app to use mock repositories:
-            services.AddScoped<IUserRepository, MockUserRepository>();
-            services.AddScoped<ISchoolInfoRepository, MockSchoolInfoRepository>();
-            services.AddScoped<ISchoolRepository, MockSchoolRepository>();
-            services.AddScoped<IInstrumentRepository, MockInstrumentRepository>();
-            services.AddScoped<ITeacherRepository, MockTeacherRepository>();
+            services.AddDbContext<VivaceContext>(options =>
+             options.UseSqlServer(
+                 Configuration.GetConnectionString("VivaceConnection")));
 
             services.AddControllersWithViews();
             // makes URL lowercase with trailing slashes

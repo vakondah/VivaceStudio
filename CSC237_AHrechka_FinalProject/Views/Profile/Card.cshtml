@@ -13,7 +13,7 @@
                                 class="close text-right text-white d-none d-sm-inline d-md-none d-lg-none d-xl-none m-3">
                             <span aria-hidden="true">×</span>
                         </a>
-                        <img src="~/Pictures/crow.png" />
+                        <img src="@ViewBag.ImageDataUrl" />
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-8 text-center">
                         <div class="row">
@@ -61,7 +61,7 @@
                     <h5 class="mb-0">School</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Placeholder</p>
+                    <p class="card-text">@Model.School.SchoolName</p>
                 </div>
             </div>
             <div class="card">
@@ -69,7 +69,7 @@
                     <h5 class="mb-0">Instrument</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Placeholder</p>
+                    <p class="card-text">@Model.Instrument.InstrumentName</p>
                 </div>
             </div>
             <div class="card">
@@ -77,7 +77,7 @@
                     <h5 class="mb-0">Classes</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Placeholder</p>
+                    <p class="card-text">@Model.MyClasses</p>
                 </div>
             </div>
             <div class="card">

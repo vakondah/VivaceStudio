@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,10 +17,17 @@ namespace CSC237_AHrechka_FinalProject.Models
         public string Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public int ImageID { get; set; }
+        public int StudentNumber { get; set; }
+        public string MyClasses { get; set; }
+        
+        //public int ImageID { get; set; }
         public Image Image { get; set; }
-        public int StudentID { get; set; }
-        public SchoolInfo SchoolInfo { get; set; }
+        public int SchoolID { get; set; }
+        public School School { get; set; }
+        public int InstrumentID { get; set; }
+        public Instrument Instrument { get; set; }
+        public int TeacherID { get; set; }
+        public Teacher Teacher { get; set; }
         public int AccountID { get; set; }
         public Account Account { get; set; }
 
