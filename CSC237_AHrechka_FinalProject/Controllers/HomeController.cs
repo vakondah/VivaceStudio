@@ -16,12 +16,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             return View();
         }
-        //opens catting room page:
-        [Route("Chat")]
-        public IActionResult Chat()
-        {
-            return View();
-        }
+        
         //opens Practice Log page:
         [Route("Log")]
         public IActionResult PracticeLog()

@@ -1,0 +1,68 @@
+﻿@model List<User>
+@{ 
+    ViewData["Title"] = "Chatting Room";
+}
+
+<h2>Chatting Room</h2>
+<div class="row">
+    <div class="col-sm-5">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Users:</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td><img src="~/Pictures/bigpicture.jpg" class="avatar p-0" /></td>
+                        <td>
+                            <a asp-controller="Profile"
+                               asp-action="Card"
+                               asp-route-id="@user.UserID">@user.FullName</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Chat"
+                               asp-action=""
+                               asp-route-id=""
+                               class="btn btn-info">Message</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-7">
+        <div id="inputForm">
+            <input type="text" id="message" />
+            <input type="button" id="sendBtn" value="Send" />
+        </div>
+        <div id="chatroom"></div>
+        <script src="~/js/signalr.min.js"></script>
+        <script>
+        const hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl("/chattingRoom")
+            .build();
+
+        hubConnection.on("Send", function (data) {
+
+                let elem = document.createElement("p");
+                elem.appendChild(document.createTextNode(data));
+                let firstElem = document.getElementById("chatroom").firstChild;
+                document.getElementById("chatroom").insertBefore(elem, firstElem);
+
+        });
+
+        document.getElementById("sendBtn").addEventListener("click", function (e) {
+            let message = document.getElementById("message").value;
+            hubConnection.invoke("Send", message);
+        });
+
+        hubConnection.start();
+        </script>
+
+    </div>
+</div>

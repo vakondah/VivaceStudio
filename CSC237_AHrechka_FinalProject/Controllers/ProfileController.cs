@@ -44,12 +44,14 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 .Include(i => i.Instrument)
                 .FirstOrDefault(i => i.UserID == id);
             Image img = context.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
-                //.Where(u => u.UserID == id)
-                //.FirstOrDefault();
-            string imageBase64Data = Convert.ToBase64String(img.ImageData);
-            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-            ViewBag.ImageDataUrl = imageDataURL;
+            if (img != null)
+            {
+                string imageBase64Data = Convert.ToBase64String(img.ImageData);
+                string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                ViewBag.ImageDataUrl = imageDataURL;
+            }
             return View(user);
+
         }
         // opens profile picture view:
         [Route("Profile/Picture")]
@@ -58,10 +60,15 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             var user = context.Users
                .FirstOrDefault(i => i.UserID == id);
             Image img = context.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
-            string imageBase64Data = Convert.ToBase64String(img.ImageData);
-            string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
-            ViewBag.ImageDataUrl = imageDataURL;
-            return View(user);
+            if (img != null)
+            {
+                string imageBase64Data = Convert.ToBase64String(img.ImageData);
+                string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                ViewBag.ImageDataUrl = imageDataURL;
+                return View(user);
+            }
+            
+            return View();
         }
 
         [HttpPost]
@@ -86,6 +93,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 ms.Close();
                 ms.Dispose();
 
+                //context.Entry(image).State = EntityState.Modified;
                 context.Images.Update(image);
                 context.SaveChanges();
             }
@@ -95,7 +103,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
             ViewBag.ImageDataUrl = imageDataURL;
 
-            return View("ProfilePicture");
+            return RedirectToAction("ProfilePicture");
         }
 
         // opens practice log settings page:
