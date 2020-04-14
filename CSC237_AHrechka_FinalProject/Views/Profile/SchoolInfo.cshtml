@@ -6,49 +6,61 @@
 }
 
 
-<div class=" col-9">
-    <h4>School Info:</h4><br />
-    <div class="form-group">
-        <label asp-for="StudentNumber">Student Number:</label>
-        <input asp-for="StudentNumber" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="SchoolID">Choose your school:</label>
-        <select asp-for="SchoolID" class="form-control">
-          
-            @foreach (School s in ViewBag.Schools)
-            {
-                <option value="@s.SchoolID">@s.SchoolName</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="InstrumentID">Choose your instrument:</label>
-        <select asp-for="InstrumentID" class="form-control">
-         
-            @foreach (Instrument i in ViewBag.Instruments)
-            {
-                <option value="@i.InstrumentID">@i.InstrumentName</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="TeacherID">Choose your teacher:</label>
-        <select asp-for="TeacherID" class="form-control">
-           
-            @foreach (Teacher t in ViewBag.Teachers)
-            {
-                <option value="@t.TeacherID">@t.FullName</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="MyClasses">List your classes:</label>
-        <input asp-for="MyClasses" class="form-control" />
-    </div>
-    <div class="form-group">
-        <!-- <input type="hidden"  />-->
-        <button type="Submit" class="btn btn-primary">Save</button>
-        <a asp-action="SchoolInfo" class="btn btn-primary">Cancel</a>
-    </div>
+    <div class=" col-9">
+        <h4>School Info:</h4>
+        <br />
+        <form asp-action="Save" method="post">
+            <div class="form-group">
+                <label asp-for="StudentNumber">Student Number:</label>
+                <div class="col-sm-8">
+                    <input asp-for="StudentNumber" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SchoolID">Choose your school:</label>
+                <div class="col-sm-8">
+                    <select asp-for="SchoolID"
+                            asp-items="@(new SelectList(ViewBag.Schools,
+                               "SchoolID", "SchoolName", Model.SchoolID))"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="InstrumentID">Choose your instrument:</label>
+                <div class="col-sm-8">
+                    <select asp-for="InstrumentID"
+                            asp-items="@(new SelectList(ViewBag.Instruments,
+                                 "InstrumentID", "InstrumentName", Model.InstrumentID))"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TeacherID">Choose your teacher:</label>
+                <div class="col-sm-8">
+                    <select asp-for="TeacherID"
+                            asp-items="@(new SelectList(ViewBag.Teachers,
+                                "TeacherID", "FullName", Model.TeacherID))"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MyClasses">List your classes:</label>
+                <div class="col-sm-8">
+                    <input asp-for="MyClasses" class="form-control" />
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <!-- <input type="hidden"  />-->
+                    <button type="Submit" class="btn btn-primary">Save</button>
+                    <a asp-action="SchoolInfo" class="btn btn-primary">Cancel</a>
+                </div>
+</form>
 </div>

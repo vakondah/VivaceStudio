@@ -23,5 +23,6 @@ namespace CSC237_AHrechka_FinalProject.Controllers
            
             return View(users);
         }
+        
     }
 }

@@ -16,6 +16,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             context = ctx;
         }
+
         // opens Personal Info page and passes users info from the mock repository to view:
         [Route("Profile")]
         public IActionResult PersonalInfo(int id = 2)
@@ -23,6 +24,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             var user = context.Users.Find(id);
             return View(user);
         }
+
         // opens view and fills out ViewBags to be passed to the view:
         [Route("Profile/School")]
         public IActionResult SchoolInfo(int id = 2)
@@ -34,6 +36,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 .FirstOrDefault(i => i.UserID == id);
             return View(schoolInfo);
         }
+
         // opens personal student's card and passes student info:
         [Route("Profile/Card")]
         [HttpGet]
@@ -53,6 +56,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             return View(user);
 
         }
+
         // opens profile picture view:
         [Route("Profile/Picture")]
         public IActionResult ProfilePicture(int id = 2)
@@ -112,12 +116,14 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             return View();
         }
+
         // opens chat settings page:
         [Route("Settings/Chat")]
         public IActionResult ChatSettings()
         {
             return View();
         }
+
        // opens account settings page:
        [Route("Settings/Account")]
         public IActionResult AccountSettings()

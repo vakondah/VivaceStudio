@@ -1,4 +1,11 @@
 ﻿<!--Main layout with nav bar and footer-->
+@{
+    string controller =
+        ViewContext.RouteData.Values["controller"].ToString();
+    string action =
+        ViewContext.RouteData.Values["action"].ToString();
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,42 +15,49 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
-   
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
             <div class="container">
-                <a class="navbar-brand"asp-controller="Home" asp-action="Index">Vivace Studuo</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Vivace Studuo</a>
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
-                <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span>
+                    <span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse"
                      id="navcol-1">
                     <ul class="nav navbar-nav mr-auto">
                         <li role="presentation" class="nav-item">
-                            <a class="nav-link active" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @(controller == "Home" && action == "Index" ? "active" : "")" 
+                               asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <!--TODO:<li role="presentation" class="nav-item">
-    <a class="nav-link active text-dark" href="#">Schools</a>
-    </li>-->
+                        <a class="nav-link" href="#">Schools</a>
+                        </li>-->
                         <li role="presentation" class="nav-item">
-                            <a class="nav-link active text-dark" asp-controller="Chat" asp-action="Index">Chat</a>
+                            <a class="nav-link  @(controller == "Chat" ? "active" : "")"
+                               asp-controller="Chat" asp-action="Index">Chat</a>
                         </li>
                         <li role="presentation" class="nav-item">
-                            <a class="nav-link active text-dark" asp-controller="Home" asp-action="PracticeLog">Practice Log</a>
+                            <a class="nav-link  @(controller == "Home" && action == "PracticeLog" ? "active" : "")"
+                               asp-controller="Home" asp-action="PracticeLog">Practice Log</a>
                         </li>
                         <li role="presentation" class="nav-item">
-                        <a class="nav-link active text-dark" asp-controller="Profile" asp-action="PersonalInfo">My Profile</a>
+                            <a class="nav-link  @(controller == "Profile" ? "active" : "")"
+                               asp-controller="Profile" asp-action="PersonalInfo">My Profile</a>
                         </li>
-                        <!--<li role="presentation" class="nav-item"><a class="nav-link text-dark" asp-controller="Home" asp-action="ContactUs">Contact Us</a></li>-->
+                        <!--<li role="presentation" class="nav-item">
+                            <a class="nav-link"
+                            asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                            </li>-->
                     </ul>
                     <span class="navbar-text actions">
-                    <a class="btn btn-info action-button text-white" role="button" href="#">Sign Out</a>
+                        <a class="btn btn-info action-button text-white" role="button" href="#">Sign Out</a>
                     </span>
                 </div>
             </div>
@@ -51,7 +65,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            
+
             @RenderBody()
         </main>
     </div>
