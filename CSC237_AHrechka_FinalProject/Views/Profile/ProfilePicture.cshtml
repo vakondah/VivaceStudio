@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model Image
 @{
     Layout = "_ProfileLayout";
 }
@@ -17,6 +17,10 @@
             <input type="file" id="file1" name="file1" multiple="multiple" />
         </div>
         <input type="hidden" asp-for="UserID" />
+        <input type="hidden" asp-for="ImageID" />
+        <input type="hidden" asp-for="ImageTitle" />
+        <input type="hidden" asp-for="ImageData" />
+
         <button type="Submit" class="btn btn-primary">Save</button>
         <a asp-action="ProfilePicture" class="btn btn-primary">Cancel</a>
     </form>

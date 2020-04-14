@@ -9,7 +9,7 @@
     <div class=" col-9">
         <h4>School Info:</h4>
         <br />
-        <form asp-action="Save" method="post">
+        <form asp-action="SaveSchoolInfo" method="post">
             <div class="form-group">
                 <label asp-for="StudentNumber">Student Number:</label>
                 <div class="col-sm-8">
@@ -57,10 +57,20 @@
                 </div>
             </div>
 
-                <div class="form-group">
-                    <!-- <input type="hidden"  />-->
-                    <button type="Submit" class="btn btn-primary">Save</button>
-                    <a asp-action="SchoolInfo" class="btn btn-primary">Cancel</a>
-                </div>
+            <div class="form-group">
+
+                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="FirstName" />
+                <input type="hidden" asp-for="LastName" />
+                <input type="hidden" asp-for="DateOfBirth" />
+                <input type="hidden" asp-for="Bio" />
+                <input type="hidden" asp-for="Address" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="Phone" />
+
+
+                <button type="Submit" class="btn btn-primary">Save</button>
+                <a asp-action="SchoolInfo" class="btn btn-primary">Cancel</a>
+            </div>
 </form>
 </div>

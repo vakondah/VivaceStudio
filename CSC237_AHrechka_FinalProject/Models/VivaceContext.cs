@@ -16,7 +16,7 @@ namespace CSC237_AHrechka_FinalProject.Models
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
-        public DbSet<Account> Accounts { get; set; }
+        //public DbSet<Account> Accounts { get; set; }
         public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,7 +27,7 @@ namespace CSC237_AHrechka_FinalProject.Models
                 {
                     UserID = 1,
                     StudentNumber = 1010,
-                    AccountID = 1,
+                    //AccountID = 1,
                     FirstName = "Aliaksandra",
                     LastName = "Hrechka",
                     DateOfBirth = DateTime.Parse("2000-01-08"),
@@ -45,7 +45,7 @@ namespace CSC237_AHrechka_FinalProject.Models
                 {
                     UserID = 2,
                     StudentNumber = 1011,
-                    AccountID = 2,
+                    //AccountID = 2,
                     FirstName = "Stacy",
                     LastName = "Miller",
                     DateOfBirth = DateTime.Parse("2007-12-18"),
@@ -146,20 +146,7 @@ namespace CSC237_AHrechka_FinalProject.Models
                }
                );
 
-            modelBuilder.Entity<Account>().HasData(
-                new Account
-                {
-                    AccountID = 1,
-                    AccountEmail = "ahrechka@gmail.com",
-                    Password = "123"
-                },
-                new Account
-                {
-                    AccountID = 2,
-                    AccountEmail = "stacym@gmail.com",
-                    Password = "123"
-                }
-                );
+            
             modelBuilder.Entity<Image>().HasData(
                 new Image
                 {

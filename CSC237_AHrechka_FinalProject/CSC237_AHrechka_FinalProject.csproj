@@ -17,6 +17,14 @@
     <Compile Remove="Migrations\20200328234217_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200328234446_Initial.cs" />
     <Compile Remove="Migrations\20200328234446_Initial.Designer.cs" />
+    <Compile Remove="Migrations\20200414023023_AccountIDChanged.cs" />
+    <Compile Remove="Migrations\20200414023023_AccountIDChanged.Designer.cs" />
+    <Compile Remove="Migrations\20200414025723_AccountFKChanged.cs" />
+    <Compile Remove="Migrations\20200414025723_AccountFKChanged.Designer.cs" />
+    <Compile Remove="Migrations\20200414030801_AccountsTableFKadded.cs" />
+    <Compile Remove="Migrations\20200414030801_AccountsTableFKadded.Designer.cs" />
+    <Compile Remove="Migrations\20200414031402_configFK.cs" />
+    <Compile Remove="Migrations\20200414031402_configFK.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

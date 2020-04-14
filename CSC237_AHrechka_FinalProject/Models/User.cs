@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace CSC237_AHrechka_FinalProject.Models
 {
     public class User
     {
+        
         public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -27,8 +29,8 @@ namespace CSC237_AHrechka_FinalProject.Models
         public Instrument Instrument { get; set; }
         public int TeacherID { get; set; }
         public Teacher Teacher { get; set; }
-        public int AccountID { get; set; }
-        public Account Account { get; set; }
+        //public int AccountID { get; set; }
+        //public Account Account { get; set; }
 
         public string FullName => FirstName + " " + LastName;
         public int Age => Convert.ToInt32(DateTime.Now.Year - DateOfBirth.Year);
