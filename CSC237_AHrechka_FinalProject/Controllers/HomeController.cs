@@ -17,12 +17,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             return View();
         }
         
-        //opens Practice Log page:
-        [Route("Log")]
-        public IActionResult PracticeLog()
-        {
-            return View();
-        }
+      
         
     }
 }

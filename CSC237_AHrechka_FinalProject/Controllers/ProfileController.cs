@@ -19,7 +19,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 
         // opens Personal Info page and passes users info from the mock repository to view:
         [Route("Profile")]
-        public IActionResult PersonalInfo(int id = 2)
+        public IActionResult PersonalInfo(int id = 1)
         {
             var user = context.Users.Find(id);
             return View(user);
@@ -27,7 +27,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 
         // opens view and fills out ViewBags to be passed to the view:
         [Route("Profile/School")]
-        public IActionResult SchoolInfo(int id = 2)
+        public IActionResult SchoolInfo(int id = 1)
         {
             ViewBag.Schools = context.Schools.OrderBy(s => s.SchoolName).ToList();// TODO: put them in a method!
             ViewBag.Instruments = context.Instruments.OrderBy(i => i.InstrumentName).ToList();
@@ -40,13 +40,17 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         // opens personal student's card and passes student info:
         [Route("Profile/Card")]
         [HttpGet]
-        public IActionResult Card(int id = 2)
+        public IActionResult Card(int id)
         {
             var user = context.Users
                 .Include(s => s.School)
                 .Include(i => i.Instrument)
+                .Include(i => i.Image)
                 .FirstOrDefault(i => i.UserID == id);
-            Image img = context.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();
+            Image img = context.Images
+                .Where(i => i.UserID == id)
+                .FirstOrDefault();
+            
             if (img != null)
             {
                 string imageBase64Data = Convert.ToBase64String(img.ImageData);
@@ -58,10 +62,11 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProfilePicture(int id = 2)
+        public IActionResult ProfilePicture(int id = 1)
         {
-            var image = context.Images
-                .Include(i => i.User)
+            
+            Image image = context.Images
+                
                 .Where(i => i.UserID == id)
                 .FirstOrDefault();
             if (image != null)
@@ -78,9 +83,11 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         [HttpPost]
         public IActionResult SaveImage(Image image)
         {
+
+
             foreach (var file in Request.Form.Files)
             {
-                //Image object is created and its ImageTitle properties set
+                //Image object is created and its properties set
                 Image img2 = new Image
                 {
                     ImageTitle = file.FileName,

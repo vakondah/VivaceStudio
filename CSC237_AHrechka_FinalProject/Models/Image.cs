@@ -14,5 +14,7 @@ namespace CSC237_AHrechka_FinalProject.Models
         public string ImageTitle { get; set; }
         public byte[] ImageData { get; set; }
         public User User { get; set; }
+
+        
     }
 }

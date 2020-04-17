@@ -19,6 +19,8 @@ namespace CSC237_AHrechka_FinalProject.Models
         //public DbSet<Account> Accounts { get; set; }
         public DbSet<Image> Images { get; set; }
 
+        public DbSet<PracticeLog> PracticeLog{ get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             

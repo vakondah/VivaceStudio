@@ -9,7 +9,7 @@
     <h4>
         Personal Info:
         <span>
-            <a asp-action="Card"
+            <a asp-action="Card" asp-route-id="@Model.UserID"
                class="btn btn-info btn-md text-justify action-button ml-5">
                 View my Personal Card
             </a>
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
         <label asp-for="DateOfBirth">Date of Birth:</label>
-        <input asp-for="DateOfBirth" class="form-control" />
+        <input asp-for="DateOfBirth" class="form-control" type="date"/>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="formCheck-1" checked />
             <label class="form-check-label" for="formCheck-1">Display on Personal Card</label>

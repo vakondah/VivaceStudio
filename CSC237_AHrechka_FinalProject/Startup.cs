@@ -30,6 +30,9 @@ namespace CSC237_AHrechka_FinalProject
              options.UseSqlServer(
                  Configuration.GetConnectionString("VivaceConnection")));
 
+            services.AddMemoryCache();
+            services.AddSession();
+
             services.AddControllersWithViews();
             services.AddSignalR();
             // makes URL lowercase with trailing slashes
@@ -58,6 +61,8 @@ namespace CSC237_AHrechka_FinalProject
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

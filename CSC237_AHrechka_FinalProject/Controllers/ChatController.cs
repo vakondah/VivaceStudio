@@ -1,5 +1,6 @@
 ﻿using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,22 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             context = ctx;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int id = 1)
         {
             ViewBag.Title = "Chatting Room";
 
-            List<User> users = context.Users.OrderBy(u => u.LastName).ToList();
-           
+            List<User> users = context.Users
+                .Include(u => u.Image)
+                .OrderBy(u => u.LastName).ToList();
+            User currentUser = context.Users.Find(id);
+            users.Remove(currentUser);
+            ViewBag.CurrentUser = currentUser.FullName;
+
+                      
             return View(users);
         }
+
+        
         
     }
 }

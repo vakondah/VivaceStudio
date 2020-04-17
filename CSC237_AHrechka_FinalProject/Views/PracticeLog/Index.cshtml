@@ -1,0 +1,17 @@
+﻿@model PracticeLog
+<h2>Practice Log</h2>
+
+<form asp-action="Start" method="post">
+    <div>
+
+        @*<a asp-action="Start" asp-controller="PracticeLog" class="btn btn-primary">Start</a>*@
+
+        <input type="hidden" asp-for="PracticeLogID" />
+        <input type="hidden" asp-for="PracticeStartTime" />
+
+        <button type="submit" class="btn btn-primary">Start</button>
+        <a asp-action="Stop" asp-controller="PracticeLog" 
+           
+           class="btn btn-danger">Stop</a>
+    </div>
+</form>

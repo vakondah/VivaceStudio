@@ -25,12 +25,14 @@ namespace CSC237_AHrechka_FinalProject.Models
         public Image Image { get; set; }
         public int SchoolID { get; set; }
         public School School { get; set; }
+
         public int InstrumentID { get; set; }
         public Instrument Instrument { get; set; }
+
         public int TeacherID { get; set; }
         public Teacher Teacher { get; set; }
-        //public int AccountID { get; set; }
-        //public Account Account { get; set; }
+
+        public ICollection<PracticeLog> MyPractices { get; set; }
 
         public string FullName => FirstName + " " + LastName;
         public int Age => Convert.ToInt32(DateTime.Now.Year - DateOfBirth.Year);
