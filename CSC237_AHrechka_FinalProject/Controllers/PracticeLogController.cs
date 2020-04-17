@@ -15,8 +15,12 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         
         //opens Practice Log page:
         [Route("Log")]
-        public IActionResult Index()
+        public IActionResult Index(int id = 1)
         {
+            ViewBag.Practices = context.PracticeLog
+                            .Where(u => u.UserID == id)
+                            .OrderByDescending(u => u.PracticeLogID)
+                            .ToList();
 
             return View();
         }
@@ -76,6 +80,23 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             {
                 return View("PracticeDetails", practice);
             }
+        }
+
+        [HttpGet]
+        public ViewResult Delete(int id)
+        {
+            var practice = context.PracticeLog.Find(id);
+            return View(practice);
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Delete(PracticeLog practice)
+        {
+           
+            context.PracticeLog.Remove(practice);
+            context.SaveChanges();
+           
+            return RedirectToAction("Index");
         }
 
     }

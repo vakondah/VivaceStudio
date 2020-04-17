@@ -15,3 +15,33 @@
            class="btn btn-danger">Stop</a>
     </div>
 </form>
+
+<table class="table table-bordered table-striped table-dark">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Duration</th>
+            <th>Note</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PracticeLog p in ViewBag.Practices)
+        {
+        <tr>
+            <td>@p.Date.ToShortDateString()</td>
+            <td>@p.DayOfWeek</td>
+            <td>@p.Duration</td>
+            <td>@p.Note</td>
+            <td></td>
+            <td></td>
+            <td><a asp-action="Delete" asp-route-id="@p.PracticeLogID">
+                   <i class="fas fa-trash-alt text-danger"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

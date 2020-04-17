@@ -1,0 +1,22 @@
+﻿@model PracticeLog
+
+
+<div class="highlight-clean">
+    <div class="container">
+        <div class="intro">
+            <h2 class="text-center">Confirm Deletion</h2>
+            <p class="text-center">
+                Click Delete button to confirm deletion.
+                This entry will be deleted permanently.
+                Are you sure you want to Delete this practice entry?
+            </p>
+        </div>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="PracticeLogID" />
+
+            <button type="submit" class="btn btn-primary">Delete</button>
+            <a asp-action="Index" class="btn btn-light">Cancel</a>
+        </form>
+    </div>
+</div>
