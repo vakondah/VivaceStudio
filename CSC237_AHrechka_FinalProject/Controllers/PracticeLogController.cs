@@ -1,4 +1,5 @@
 ﻿using CSC237_AHrechka_FinalProject.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,10 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             ViewBag.Practices = context.PracticeLog
                             .Where(u => u.UserID == id)
+                            .Where(u =>u.InProgress != true)
                             .OrderByDescending(u => u.PracticeLogID)
                             .ToList();
-
+            ViewBag.InProgress = false;
             return View();
         }
 
@@ -29,41 +31,78 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         [HttpPost]
         public IActionResult Start(int id = 1)
         {
+            
             PracticeLog pl = new PracticeLog
             {
                 PracticeStartTime = DateTime.Now,
                 UserID = id,
                 Date = DateTime.Now,
-                DayOfWeek = DateTime.Now.DayOfWeek
+                DayOfWeek = DateTime.Now.DayOfWeek,
+                InProgress = true
             };
+
+            // setting new session for started practice
+            HttpContext.Session.SetInt32("logID", pl.PracticeLogID);
+            
             context.PracticeLog.Add(pl);
             context.SaveChanges();
-            
+            ViewBag.InProgress = true;
             return RedirectToAction("Index", pl);
         }
 
         [HttpGet]
         public IActionResult Stop(int id = 1)
         {
-            PracticeLog practice = context.PracticeLog
+            // here I am checking if start was clicked
+            // and practice exists in the database:
+            int? logID = HttpContext.Session.GetInt32("logID");
+
+            if (logID != null)
+            {
+                PracticeLog practice = context.PracticeLog
                 .Where(p => p.UserID == id)
+
                 .OrderByDescending(p => p.Date)
                 .FirstOrDefault();
 
-            practice.PracticeEndTime = DateTime.Now;
-            TimeSpan span = practice.PracticeEndTime.Subtract(practice.PracticeStartTime);
-            
+                practice.InProgress = false;
+                practice.PracticeEndTime = DateTime.Now;
+                TimeSpan span = practice.PracticeEndTime.Subtract(practice.PracticeStartTime);
 
-            if (span.Hours > 0)
-            {
-                practice.Duration = $"{span.Hours} hours {span.Minutes} min";
+
+                if (span.Hours > 0)
+                {
+                    practice.Duration = $"{span.Hours} hours {span.Minutes} min";
+                }
+                else
+                {
+                    practice.Duration = $"{span.Minutes} min {span.Seconds} sec";
+                }
+
+
+                return View("PracticeDetails", practice);
             }
+            // if session is empty nothing happens
+            // user cannot click stop without clicking start
             else
             {
-                practice.Duration = $"{span.Minutes} min {span.Seconds} sec";
+                ViewBag.Practices = context.PracticeLog
+                            .Where(u => u.UserID == id)
+                            .Where(u => u.InProgress != true)
+                            .OrderByDescending(u => u.PracticeLogID)
+                            .ToList();
+                return View("Index");
             }
+                
 
-           
+            
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Action = "Edit";
+            var practice = context.PracticeLog.Find(id);
             return View("PracticeDetails", practice);
         }
 

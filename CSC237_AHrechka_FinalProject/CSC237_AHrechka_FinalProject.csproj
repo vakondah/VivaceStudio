@@ -25,6 +25,8 @@
     <Compile Remove="Migrations\20200414030801_AccountsTableFKadded.Designer.cs" />
     <Compile Remove="Migrations\20200414031402_configFK.cs" />
     <Compile Remove="Migrations\20200414031402_configFK.Designer.cs" />
+    <Compile Remove="Migrations\20200417182834_InProgressAdded.cs" />
+    <Compile Remove="Migrations\20200417182834_InProgressAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -16,8 +16,8 @@ namespace CSC237_AHrechka_FinalProject.Models
         public int UserID { get; set; }//FK
         public User User { get; set; }//navigation property
         public string Duration { get; set; }
+        public bool InProgress { get; set; }
 
-        
 
 
         //public int PracticeDuration => Convert.ToInt32(PracticeEndTime - PracticeStartTime);
