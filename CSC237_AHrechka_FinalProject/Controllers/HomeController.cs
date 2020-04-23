@@ -1,4 +1,7 @@
-﻿using System;
+﻿//CSC237
+//Aliaksandra Hrechka
+//04/19/2020
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;

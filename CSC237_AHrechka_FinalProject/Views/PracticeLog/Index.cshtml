@@ -5,6 +5,15 @@
 <link href="~/css/normalize.css" rel="stylesheet" />
 
 <h2>Practice Log</h2>
+
+<p>Your desired practice time is 30 minutes.</p>
+<p>Your average practice time is @ViewBag.Average</p>
+<div class="progress bg-white border rounded border-dark" style="margin: 5;">
+    <div class="progress-bar bg-danger" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.Width;">
+        @ViewBag.Width
+    </div>
+</div>
+
 <div id="start">
     <div id="counter">
         <div id="hours" class="unit"></div>

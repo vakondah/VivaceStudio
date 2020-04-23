@@ -1,4 +1,7 @@
-﻿using CSC237_AHrechka_FinalProject.Models;
+﻿//CSC237
+//Aliaksandra Hrechka
+//04/19/2020
+using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,12 +21,62 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         [Route("Log")]
         public IActionResult Index(int id = 1)
         {
+            //cheking if practice already started:
+            string start = HttpContext.Session.GetString("start");
+            if (start != null)
+            {
+                TempData["message"] = start;
+            }
+
+
             ViewBag.Practices = context.PracticeLog
                             .Where(u => u.UserID == id)
                             .Where(u =>u.InProgress != true)
                             .OrderByDescending(u => u.PracticeLogID)
                             .ToList();
-            ViewBag.InProgress = false;
+
+            var startTimes = context.PracticeLog
+                 .Where(u => u.UserID == id)
+                 .Where(u => u.InProgress == false)
+                 .Select(u => u.PracticeStartTime)
+                 .ToList();
+            var endTimes = context.PracticeLog
+                 .Where(u => u.UserID == id)
+                 .Where(u => u.InProgress == false)
+                 .Select(u => u.PracticeEndTime)
+                 .ToList();
+
+            List<TimeSpan> spans = new List<TimeSpan>();
+
+            //combining startTimes and endTimes into one list:
+            var startAndEnds = startTimes.Zip(endTimes, (s, e) => new { Start = s, End = e });
+
+            //finding durations and adding them to the spans list:
+            foreach ( var item in startAndEnds)
+            {
+                var span = item.End.Subtract(item.Start);
+                spans.Add(span);
+            }
+
+            TimeSpan total = new TimeSpan();
+
+            // calculating total
+            foreach (var item in spans)
+            {
+                total += item;
+            }
+
+            // calculating average:
+            var average = total / spans.Count();
+            string averagePracticeTime = $"{average.Hours}h {average.Minutes}m {average.Seconds}s";
+            ViewBag.Average = averagePracticeTime;
+
+            int desiredTimeInSeconds = 30 * 60;
+            int realTimeInSeconds = Convert.ToInt32(average.Hours*3600 + average.Minutes * 60 + average.Seconds);
+            int progressBarValue = (realTimeInSeconds * 100) / desiredTimeInSeconds;
+
+            ViewBag.Width = (progressBarValue*0.01).ToString("P0");
+
             return View();
         }
 
@@ -41,12 +94,14 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 InProgress = true
             };
 
-            // setting new session for started practice
+            // setting new sessions for started practice
             HttpContext.Session.SetInt32("logID", pl.PracticeLogID);
+            HttpContext.Session.SetString("start", $"Practice started at {pl.PracticeStartTime.ToShortTimeString()}");
             
             context.PracticeLog.Add(pl);
             context.SaveChanges();
             ViewBag.InProgress = true;
+
             return RedirectToAction("Index", pl);
         }
 
@@ -103,6 +158,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             ViewBag.Action = "Edit";
             var practice = context.PracticeLog.Find(id);
+            
             return View("PracticeDetails", practice);
         }
 
@@ -113,6 +169,15 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             {
                 context.PracticeLog.Update(practice);
                 context.SaveChanges();
+
+                string start = HttpContext.Session.GetString("start");
+                if (start != null)
+                {
+                    HttpContext.Session.Remove("start");
+                }
+
+                TempData["message"] = "Your practice details were saved.";
+
                 return RedirectToAction("Index");
             }
             else
@@ -131,10 +196,10 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         [HttpPost]
         public RedirectToActionResult Delete(PracticeLog practice)
         {
-           
+            TempData["message"] = $"Practice was deleted.";
             context.PracticeLog.Remove(practice);
             context.SaveChanges();
-           
+            
             return RedirectToAction("Index");
         }
 

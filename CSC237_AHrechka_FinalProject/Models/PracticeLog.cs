@@ -21,5 +21,6 @@ namespace CSC237_AHrechka_FinalProject.Models
 
 
         //public int PracticeDuration => Convert.ToInt32(PracticeEndTime - PracticeStartTime);
+
     }
 }

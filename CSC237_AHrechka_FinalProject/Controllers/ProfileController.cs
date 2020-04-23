@@ -1,4 +1,7 @@
-﻿using System;
+﻿//CSC237
+//Aliaksandra Hrechka
+//04/19/2020
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +20,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             context = ctx;
         }
 
-        // opens Personal Info page and passes users info from the mock repository to view:
+        // opens Personal Info page and passes users info from the db to view:
         [Route("Profile")]
         public IActionResult PersonalInfo(int id = 1)
         {
@@ -29,9 +32,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         [Route("Profile/School")]
         public IActionResult SchoolInfo(int id = 1)
         {
-            ViewBag.Schools = context.Schools.OrderBy(s => s.SchoolName).ToList();// TODO: put them in a method!
-            ViewBag.Instruments = context.Instruments.OrderBy(i => i.InstrumentName).ToList();
-            ViewBag.Teachers = context.Teachers.OrderBy(l => l.LastName).ToList();
+            StoreLists();
             var schoolInfo = context.Users
                 .FirstOrDefault(i => i.UserID == id);
             return View(schoolInfo);
@@ -149,20 +150,45 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             {
                 context.Users.Update(user);
                 context.SaveChanges();
+                TempData["message"] = "Your school info was updated";
                 return RedirectToAction("SchoolInfo");
             }
             else
             {
-                ViewBag.Schools = context.Schools.OrderBy(s => s.SchoolName).ToList();// TODO: put them in a method!
-                ViewBag.Instruments = context.Instruments.OrderBy(i => i.InstrumentName).ToList();
-                ViewBag.Teachers = context.Teachers.OrderBy(l => l.LastName).ToList();
+                StoreLists();
                 return RedirectToAction("SchoolInfo", user);
             }
-
             
         }
+
+        [HttpPost]
+        public IActionResult SavePersonalInfo(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Users.Update(user);
+                context.SaveChanges();
+                TempData["message"] = "Your personal info was updated";
+                return RedirectToAction("PersonalInfo");
+            }
+            else
+            {
+                return RedirectToAction("PersonalInfo", user);
+            }
+        }
         
-        
+        private void StoreLists()
+        {
+            ViewBag.Schools = context.Schools
+                .OrderBy(s => s.SchoolName)
+                .ToList();
+            ViewBag.Instruments = context.Instruments
+                .OrderBy(i => i.InstrumentName)
+                .ToList();
+            ViewBag.Teachers = context.Teachers
+                .OrderBy(l => l.LastName)
+                .ToList();
+        }
 
         
 

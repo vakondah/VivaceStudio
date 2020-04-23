@@ -1,4 +1,7 @@
-﻿using CSC237_AHrechka_FinalProject.Models;
+﻿//CSC237
+//Aliaksandra Hrechka
+//04/19/2020
+using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
