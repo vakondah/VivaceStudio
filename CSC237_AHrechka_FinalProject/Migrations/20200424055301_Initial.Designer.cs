@@ -4,14 +4,16 @@ using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSC237_AHrechka_FinalProject.Migrations
 {
     [DbContext(typeof(VivaceContext))]
-    partial class VivaceContextModelSnapshot : ModelSnapshot
+    [Migration("20200424055301_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,8 +91,10 @@ namespace CSC237_AHrechka_FinalProject.Migrations
 
             modelBuilder.Entity("CSC237_AHrechka_FinalProject.Models.PracticeLog", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("PracticeLogID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -110,13 +114,15 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     b.Property<DateTime>("PracticeEndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PracticeLogID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PracticeStartTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PracticeLogID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("PracticeLog");
                 });
@@ -283,6 +289,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TeacherID")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -316,11 +323,11 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7028af38-e34c-4a66-ae40-4f22e6af253d",
+                            Id = "3d5b12fa-ba1d-4af4-904e-d10fd0c72e14",
                             AccessFailedCount = 0,
                             Address = "9999 E Orange St, Aurora, CO, 80011",
                             Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.",
-                            ConcurrencyStamp = "719f6b48-2ce8-4014-a216-9cfa1fc6f75f",
+                            ConcurrencyStamp = "f9055171-8000-4aaf-ba5a-0b14064b7cb7",
                             DateOfBirth = new DateTime(2000, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Aliaksandra",
@@ -331,7 +338,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                             Phone = "970-777-7777",
                             PhoneNumberConfirmed = false,
                             SchoolID = "RA",
-                            SecurityStamp = "d5cc94ed-e70c-4da5-b16c-9d22c98174bf",
+                            SecurityStamp = "ba559306-f248-42de-a227-dbba6ac51c1c",
                             StudentNumber = 1010,
                             TeacherID = "500",
                             TwoFactorEnabled = false,
@@ -339,11 +346,11 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                         },
                         new
                         {
-                            Id = "cdc67bdd-d9a9-4194-9d32-09b2625c271c",
+                            Id = "d10a9da3-15cb-48c6-8f78-f320219c3b1e",
                             AccessFailedCount = 0,
                             Address = "367 S Limone St, Denver, CO, 80235",
                             Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.",
-                            ConcurrencyStamp = "22fa2d35-ae8f-4ae2-afec-e9e33064603c",
+                            ConcurrencyStamp = "959f6529-7e63-4223-8862-65e19f0e0ef9",
                             DateOfBirth = new DateTime(2007, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Stacy",
@@ -354,7 +361,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                             Phone = "720-303-6367",
                             PhoneNumberConfirmed = false,
                             SchoolID = "HSM",
-                            SecurityStamp = "29a69089-3a10-469a-bcf5-4e8c0852df40",
+                            SecurityStamp = "9817647f-fa5d-4643-9b70-c1c5e7c9881c",
                             StudentNumber = 1011,
                             TeacherID = "300",
                             TwoFactorEnabled = false,
@@ -504,9 +511,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                 {
                     b.HasOne("CSC237_AHrechka_FinalProject.Models.User", "User")
                         .WithMany("MyPractices")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("CSC237_AHrechka_FinalProject.Models.User", b =>
@@ -521,7 +526,9 @@ namespace CSC237_AHrechka_FinalProject.Migrations
 
                     b.HasOne("CSC237_AHrechka_FinalProject.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherID");
+                        .HasForeignKey("TeacherID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

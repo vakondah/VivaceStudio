@@ -24,6 +24,7 @@
                     <select asp-for="SchoolID"
                             asp-items="@(new SelectList(ViewBag.Schools,
                                "SchoolID", "SchoolName", Model.SchoolID))"
+                            
                             class="form-control">
                     </select>
                 </div>
@@ -60,13 +61,13 @@
 
             <div class="form-group">
 
-                <input type="hidden" asp-for="UserID" />
+                <input type="hidden" asp-for="Id" />
                 <input type="hidden" asp-for="FirstName" />
                 <input type="hidden" asp-for="LastName" />
                 <input type="hidden" asp-for="DateOfBirth" />
                 <input type="hidden" asp-for="Bio" />
                 <input type="hidden" asp-for="Address" />
-                <input type="hidden" asp-for="Email" />
+                @*<input type="hidden" asp-for="Email" />*@
                 <input type="hidden" asp-for="Phone" />
 
 

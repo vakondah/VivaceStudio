@@ -7,7 +7,7 @@ namespace CSC237_AHrechka_FinalProject.Models
 {
     public class Instrument
     {
-        public int InstrumentID { get; set; }
+        public string InstrumentID { get; set; }
         public string InstrumentName { get; set; }
     }
 }

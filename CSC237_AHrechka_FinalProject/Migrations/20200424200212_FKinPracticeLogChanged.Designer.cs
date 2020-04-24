@@ -4,14 +4,16 @@ using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSC237_AHrechka_FinalProject.Migrations
 {
     [DbContext(typeof(VivaceContext))]
-    partial class VivaceContextModelSnapshot : ModelSnapshot
+    [Migration("20200424200212_FKinPracticeLogChanged")]
+    partial class FKinPracticeLogChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

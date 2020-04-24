@@ -24,7 +24,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             ViewBag.Title = "Chatting Room";
 
             List<User> users = context.Users
-                .Include(u => u.Image)
+                //.Include(u => u.Image)
                 .OrderBy(u => u.LastName).ToList();
             User currentUser = context.Users.Find(id);
             users.Remove(currentUser);

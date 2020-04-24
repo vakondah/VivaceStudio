@@ -7,7 +7,7 @@ namespace CSC237_AHrechka_FinalProject.Models
 {
     public class School
     {
-        public int SchoolID { get; set; }
+        public string SchoolID { get; set; }
         public string SchoolName { get; set; }
     }
 }

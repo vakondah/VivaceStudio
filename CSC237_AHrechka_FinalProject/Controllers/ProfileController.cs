@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CSC237_AHrechka_FinalProject.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,38 +16,44 @@ namespace CSC237_AHrechka_FinalProject.Controllers
     public class ProfileController : Controller
     {
         private VivaceContext context;
-        public ProfileController(VivaceContext ctx)
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
+        public ProfileController(VivaceContext ctx, UserManager<User> userMngr,
+                                 SignInManager<User> signInMngr)
         {
             context = ctx;
+            userManager = userMngr;
+            signInManager = signInMngr;
         }
 
+       
         // opens Personal Info page and passes users info from the db to view:
         [Route("Profile")]
-        public IActionResult PersonalInfo(int id = 1)
+        public async Task<IActionResult> PersonalInfo()
         {
-            var user = context.Users.Find(id);
+            var user = await userManager.GetUserAsync(User);
+           
             return View(user);
         }
 
         // opens view and fills out ViewBags to be passed to the view:
         [Route("Profile/School")]
-        public IActionResult SchoolInfo(int id = 1)
+        public async Task<IActionResult> SchoolInfo()
         {
+            var user = await userManager.GetUserAsync(User);
             StoreLists();
-            var schoolInfo = context.Users
-                .FirstOrDefault(i => i.UserID == id);
-            return View(schoolInfo);
+           
+            return View(user);
         }
 
         // opens personal student's card and passes student info:
         [Route("Profile/Card")]
         [HttpGet]
-        public IActionResult Card(int id)
+        public IActionResult Card(string id)
         {
             var user = context.Users
                 .Include(s => s.School)
                 .Include(i => i.Instrument)
-                .Include(i => i.Image)
                 .FirstOrDefault(i => i.UserID == id);
             Image img = context.Images
                 .Where(i => i.UserID == id)
@@ -63,7 +70,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProfilePicture(int id = 1)
+        public IActionResult ProfilePicture(string id = "1")
         {
             
             Image image = context.Images
@@ -143,12 +150,21 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveSchoolInfo(User user)
+        public async Task<IActionResult> SaveSchoolInfo(User user)
         {
-
+           
             if (ModelState.IsValid)
             {
-                context.Users.Update(user);
+                var newUser = await userManager.GetUserAsync(User);
+
+                newUser.Id = user.Id;
+                newUser.StudentNumber = user.StudentNumber;
+                newUser.SchoolID = user.SchoolID;
+                newUser.InstrumentID = user.InstrumentID;
+                newUser.TeacherID = user.TeacherID;
+                newUser.MyClasses = user.MyClasses;
+
+                await userManager.UpdateAsync(newUser);
                 context.SaveChanges();
                 TempData["message"] = "Your school info was updated";
                 return RedirectToAction("SchoolInfo");
@@ -162,12 +178,24 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult SavePersonalInfo(User user)
+        public async Task<IActionResult> SavePersonalInfo(User user)
         {
+            var newUser = await userManager.GetUserAsync(User);
+           
             if (ModelState.IsValid)
             {
-                context.Users.Update(user);
+                newUser.Id = user.Id;
+                newUser.FirstName = user.FirstName;
+                newUser.LastName = user.LastName;
+                newUser.DateOfBirth = user.DateOfBirth;
+                newUser.FirstName = user.FirstName;
+                newUser.Bio = user.Bio;
+                newUser.Address = user.Address;
+                newUser.Phone = user.Phone;
+
+                await userManager.UpdateAsync(newUser);
                 context.SaveChanges();
+
                 TempData["message"] = "Your personal info was updated";
                 return RedirectToAction("PersonalInfo");
             }

@@ -10,6 +10,7 @@ using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +36,9 @@ namespace CSC237_AHrechka_FinalProject
 
             services.AddMemoryCache();
             services.AddSession();
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<VivaceContext>();
 
             services.AddControllersWithViews();
             services.AddSignalR();
@@ -67,6 +71,7 @@ namespace CSC237_AHrechka_FinalProject
 
             app.UseSession();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

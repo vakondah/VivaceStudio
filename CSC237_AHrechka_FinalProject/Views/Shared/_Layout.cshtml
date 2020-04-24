@@ -1,4 +1,6 @@
 ﻿<!--Main layout with nav bar and footer-->
+
+
 @{
     string controller =
         ViewContext.RouteData.Values["controller"].ToString();
@@ -33,12 +35,12 @@
                      id="navcol-1">
                     <ul class="nav navbar-nav mr-auto">
                         <li role="presentation" class="nav-item">
-                            <a class="nav-link @(controller == "Home" && action == "Index" ? "active" : "")" 
+                            <a class="nav-link @(controller == "Home" && action == "Index" ? "active" : "")"
                                asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <!--TODO:<li role="presentation" class="nav-item">
-                        <a class="nav-link" href="#">Schools</a>
-                        </li>-->
+    <a class="nav-link" href="#">Schools</a>
+    </li>-->
                         <li role="presentation" class="nav-item">
                             <a class="nav-link  @(controller == "Chat" ? "active" : "")"
                                asp-controller="Chat" asp-action="Index">Chat</a>
@@ -52,13 +54,38 @@
                                asp-controller="Profile" asp-action="PersonalInfo">My Profile</a>
                         </li>
                         <!--<li role="presentation" class="nav-item">
-                            <a class="nav-link"
-                            asp-controller="Home" asp-action="ContactUs">Contact Us</a>
-                            </li>-->
+    <a class="nav-link"
+    asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+    </li>-->
+
+
+                        @using Microsoft.AspNetCore.Identity
+                        @inject SignInManager<User> signInManager
+
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item ">
+                                <form method="post" asp-action="Logout" asp-controller="Account">
+                                    <input type="submit" value="Logout"
+                                            class="btn btn-info action-button text-white" />
+                                    <span class="text-dark">@User.Identity.Name</span>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            var action1 = ViewContext.RouteData.Values["action"]?.ToString();
+                            <li class="nav-item">
+                                <a asp-action="Register" asp-controller="Account"
+                                   class="nav-link">Register</a>
+                             </li>
+                             <li class="nav-item">
+                                   <a asp-action="Login" asp-controller="Account"
+                                      class="btn btn-info action-button text-white">Log In</a>
+                            </li>
+                        }
+
                     </ul>
-                    <span class="navbar-text actions">
-                        <a class="btn btn-info action-button text-white" role="button" href="#">Sign Out</a>
-                    </span>
                 </div>
             </div>
         </nav>

@@ -3,6 +3,7 @@
 //04/19/2020
 using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,27 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 {
     public class PracticeLogController: Controller
     {
-        public DateTime test;
+        
         private VivaceContext context;
-        public PracticeLogController(VivaceContext ctx) => context = ctx;
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
+        public PracticeLogController(VivaceContext ctx, UserManager<User> userMngr,
+                                 SignInManager<User> signInMngr)
+        {
+            context = ctx;
+            userManager = userMngr;
+            signInManager = signInMngr;
+        }
         
         //opens Practice Log page:
         [Route("Log")]
-        public IActionResult Index(int id = 1)
+        public async Task<IActionResult> Index()
         {
+            var user = await userManager.GetUserAsync(User);
+
             //cheking if practice already started:
             string start = HttpContext.Session.GetString("start");
+
             if (start != null)
             {
                 TempData["message"] = start;
@@ -30,18 +42,18 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 
 
             ViewBag.Practices = context.PracticeLog
-                            .Where(u => u.UserID == id)
+                            .Where(u => u.Id == user.Id)
                             .Where(u =>u.InProgress != true)
                             .OrderByDescending(u => u.PracticeLogID)
                             .ToList();
 
             var startTimes = context.PracticeLog
-                 .Where(u => u.UserID == id)
+                 .Where(u => u.Id == user.Id)
                  .Where(u => u.InProgress == false)
                  .Select(u => u.PracticeStartTime)
                  .ToList();
             var endTimes = context.PracticeLog
-                 .Where(u => u.UserID == id)
+                 .Where(u => u.Id == user.Id)
                  .Where(u => u.InProgress == false)
                  .Select(u => u.PracticeEndTime)
                  .ToList();
@@ -82,13 +94,13 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 
         // creates PracticeLog object and saves it to the DB
         [HttpPost]
-        public IActionResult Start(int id = 1)
+        public IActionResult Start(string id = "1")
         {
             
             PracticeLog pl = new PracticeLog
             {
                 PracticeStartTime = DateTime.Now,
-                UserID = id,
+                //UserID = id,
                 Date = DateTime.Now,
                 DayOfWeek = DateTime.Now.DayOfWeek,
                 InProgress = true
@@ -106,7 +118,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Stop(int id = 1)
+        public IActionResult Stop(string id = "1")
         {
             // here I am checking if start was clicked
             // and practice exists in the database:
@@ -115,7 +127,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             if (logID != null)
             {
                 PracticeLog practice = context.PracticeLog
-                .Where(p => p.UserID == id)
+                //.Where(p => p.UserID == id)
 
                 .OrderByDescending(p => p.Date)
                 .FirstOrDefault();
@@ -142,7 +154,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             else
             {
                 ViewBag.Practices = context.PracticeLog
-                            .Where(u => u.UserID == id)
+                            //.Where(u => u.UserID == id)
                             .Where(u => u.InProgress != true)
                             .OrderByDescending(u => u.PracticeLogID)
                             .ToList();
