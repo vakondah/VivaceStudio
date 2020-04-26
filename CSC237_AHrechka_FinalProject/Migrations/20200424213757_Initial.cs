@@ -110,7 +110,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     MyClasses = table.Column<string>(nullable: true),
                     SchoolID = table.Column<string>(nullable: true),
                     InstrumentID = table.Column<string>(nullable: true),
-                    TeacherID = table.Column<string>(nullable: false)
+                    TeacherID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -132,7 +132,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                         column: x => x.TeacherID,
                         principalTable: "Teachers",
                         principalColumn: "TeacherID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -245,8 +245,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                 name: "PracticeLog",
                 columns: table => new
                 {
-                    PracticeLogID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PracticeLogID = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     DayOfWeek = table.Column<int>(nullable: false),
                     PracticeStartTime = table.Column<DateTime>(nullable: false),
@@ -305,12 +304,12 @@ namespace CSC237_AHrechka_FinalProject.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "Bio", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "InstrumentID", "LastName", "LockoutEnabled", "LockoutEnd", "MyClasses", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SchoolID", "SecurityStamp", "StudentNumber", "TeacherID", "TwoFactorEnabled", "UserID", "UserName" },
-                values: new object[] { "d10a9da3-15cb-48c6-8f78-f320219c3b1e", 0, "367 S Limone St, Denver, CO, 80235", "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.", "959f6529-7e63-4223-8862-65e19f0e0ef9", new DateTime(2007, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Stacy", "pno", "Miller", false, null, "Piano, Choir", null, null, null, "720-303-6367", null, false, "HSM", "9817647f-fa5d-4643-9b70-c1c5e7c9881c", 1011, "300", false, "2", null });
+                values: new object[] { "48792bae-956f-4a57-b5bb-d578f57ed457", 0, "367 S Limone St, Denver, CO, 80235", "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.", "4e981466-d168-4b6b-87a0-97c362cc4b22", new DateTime(2007, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Stacy", "pno", "Miller", false, null, "Piano, Choir", null, null, null, "720-303-6367", null, false, "HSM", "3e40bf73-65ca-4e68-8e3c-67297fbed258", 1011, "300", false, "2", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "Bio", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "FirstName", "InstrumentID", "LastName", "LockoutEnabled", "LockoutEnd", "MyClasses", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "Phone", "PhoneNumber", "PhoneNumberConfirmed", "SchoolID", "SecurityStamp", "StudentNumber", "TeacherID", "TwoFactorEnabled", "UserID", "UserName" },
-                values: new object[] { "3d5b12fa-ba1d-4af4-904e-d10fd0c72e14", 0, "9999 E Orange St, Aurora, CO, 80011", "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.", "f9055171-8000-4aaf-ba5a-0b14064b7cb7", new DateTime(2000, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Aliaksandra", "gtr", "Hrechka", false, null, "Guitar, Choir", null, null, null, "970-777-7777", null, false, "RA", "ba559306-f248-42de-a227-dbba6ac51c1c", 1010, "500", false, "1", null });
+                values: new object[] { "8daa80d2-c4dd-4a71-be0a-b326c576ae00", 0, "9999 E Orange St, Aurora, CO, 80011", "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.", "45b38971-f1d3-4f3f-8f48-ee063c251228", new DateTime(2000, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Aliaksandra", "gtr", "Hrechka", false, null, "Guitar, Choir", null, null, null, "970-777-7777", null, false, "RA", "75b81d23-cde6-4657-8908-07e6ea795d3d", 1010, "500", false, "1", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

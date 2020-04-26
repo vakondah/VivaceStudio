@@ -40,95 +40,108 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 TempData["message"] = start;
             }
 
-
-            ViewBag.Practices = context.PracticeLog
-                            .Where(u => u.Id == user.Id)
-                            .Where(u =>u.InProgress != true)
+            user.MyPractices = context.PracticeLog
+                            .Where(u => u.UserID == user.Id)
+                            .Where(u => u.InProgress != true)
                             .OrderByDescending(u => u.PracticeLogID)
                             .ToList();
 
-            var startTimes = context.PracticeLog
-                 .Where(u => u.Id == user.Id)
+            ViewBag.Practices = user.MyPractices;
+
+            if (user.MyPractices.Any())
+            {
+                var startTimes = context.PracticeLog
+                 .Where(u => u.UserID == user.Id)
                  .Where(u => u.InProgress == false)
                  .Select(u => u.PracticeStartTime)
                  .ToList();
-            var endTimes = context.PracticeLog
-                 .Where(u => u.Id == user.Id)
-                 .Where(u => u.InProgress == false)
-                 .Select(u => u.PracticeEndTime)
-                 .ToList();
+                var endTimes = context.PracticeLog
+                     .Where(u => u.UserID == user.Id)
+                     .Where(u => u.InProgress == false)
+                     .Select(u => u.PracticeEndTime)
+                     .ToList();
 
-            List<TimeSpan> spans = new List<TimeSpan>();
+                List<TimeSpan> spans = new List<TimeSpan>();
 
-            //combining startTimes and endTimes into one list:
-            var startAndEnds = startTimes.Zip(endTimes, (s, e) => new { Start = s, End = e });
+                //combining startTimes and endTimes into one list:
+                var startAndEnds = startTimes.Zip(endTimes, (s, e) => new { Start = s, End = e });
 
-            //finding durations and adding them to the spans list:
-            foreach ( var item in startAndEnds)
+                //finding durations and adding them to the spans list:
+                foreach (var item in startAndEnds)
+                {
+                    var span = item.End.Subtract(item.Start);
+                    spans.Add(span);
+                }
+
+                TimeSpan total = new TimeSpan();
+
+                // calculating total
+                foreach (var item in spans)
+                {
+                    total += item;
+                }
+
+                // calculating average:
+                var average = total / spans.Count();
+                string averagePracticeTime = $"{average.Hours}h {average.Minutes}m {average.Seconds}s";
+                ViewBag.Average = averagePracticeTime;
+
+                int desiredTimeInSeconds = 30 * 60;
+                int realTimeInSeconds = Convert.ToInt32(average.Hours * 3600 + average.Minutes * 60 + average.Seconds);
+                int progressBarValue = (realTimeInSeconds * 100) / desiredTimeInSeconds;
+
+                ViewBag.Width = (progressBarValue * 0.01).ToString("P0");
+            }
+            else
             {
-                var span = item.End.Subtract(item.Start);
-                spans.Add(span);
+                ViewBag.Average = 0;
+                ViewBag.Width = 0;
             }
 
-            TimeSpan total = new TimeSpan();
-
-            // calculating total
-            foreach (var item in spans)
-            {
-                total += item;
-            }
-
-            // calculating average:
-            var average = total / spans.Count();
-            string averagePracticeTime = $"{average.Hours}h {average.Minutes}m {average.Seconds}s";
-            ViewBag.Average = averagePracticeTime;
-
-            int desiredTimeInSeconds = 30 * 60;
-            int realTimeInSeconds = Convert.ToInt32(average.Hours*3600 + average.Minutes * 60 + average.Seconds);
-            int progressBarValue = (realTimeInSeconds * 100) / desiredTimeInSeconds;
-
-            ViewBag.Width = (progressBarValue*0.01).ToString("P0");
 
             return View();
         }
 
         // creates PracticeLog object and saves it to the DB
         [HttpPost]
-        public IActionResult Start(string id = "1")
+        public async Task<IActionResult> Start()
         {
+            var user = await userManager.GetUserAsync(User);
+
+            PracticeLog pl = new PracticeLog();
+
+            pl.PracticeLogID = Guid.NewGuid().ToString();
+            pl.PracticeStartTime = DateTime.Now;
+            pl.UserID = user.Id;
+            pl.Date = DateTime.Now;
+            pl.DayOfWeek = DateTime.Now.DayOfWeek;
+            pl.InProgress = true;
             
-            PracticeLog pl = new PracticeLog
-            {
-                PracticeStartTime = DateTime.Now,
-                //UserID = id,
-                Date = DateTime.Now,
-                DayOfWeek = DateTime.Now.DayOfWeek,
-                InProgress = true
-            };
 
             // setting new sessions for started practice
-            HttpContext.Session.SetInt32("logID", pl.PracticeLogID);
-            HttpContext.Session.SetString("start", $"Practice started at {pl.PracticeStartTime.ToShortTimeString()}");
+            HttpContext.Session.SetString("logID", pl.PracticeLogID);
+            HttpContext.Session.SetString("start", $"Practice started at " +
+                $"{pl.PracticeStartTime.ToShortTimeString()}");
             
             context.PracticeLog.Add(pl);
             context.SaveChanges();
-            ViewBag.InProgress = true;
-
+           
             return RedirectToAction("Index", pl);
         }
 
         [HttpGet]
-        public IActionResult Stop(string id = "1")
+        public async Task<IActionResult> Stop()
         {
+            var user = await userManager.GetUserAsync(User);
+
             // here I am checking if start was clicked
             // and practice exists in the database:
-            int? logID = HttpContext.Session.GetInt32("logID");
+            string logID = HttpContext.Session.GetString("logID");
 
             if (logID != null)
             {
                 PracticeLog practice = context.PracticeLog
-                //.Where(p => p.UserID == id)
-
+                .Where(p => p.PracticeLogID == logID)
                 .OrderByDescending(p => p.Date)
                 .FirstOrDefault();
 
@@ -154,19 +167,17 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             else
             {
                 ViewBag.Practices = context.PracticeLog
-                            //.Where(u => u.UserID == id)
+                            .Where(u => u.UserID == user.Id)
                             .Where(u => u.InProgress != true)
                             .OrderByDescending(u => u.PracticeLogID)
                             .ToList();
                 return View("Index");
             }
-                
-
             
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(string id)
         {
             ViewBag.Action = "Edit";
             var practice = context.PracticeLog.Find(id);
@@ -199,7 +210,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpGet]
-        public ViewResult Delete(int id)
+        public ViewResult Delete(string id)
         {
             var practice = context.PracticeLog.Find(id);
             return View(practice);

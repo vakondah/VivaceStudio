@@ -8,8 +8,8 @@
 
 <p>Your desired practice time is 30 minutes.</p>
 <p>Your average practice time is @ViewBag.Average</p>
-<div class="progress bg-white border rounded border-dark" style="margin: 5;">
-    <div class="progress-bar bg-danger" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.Width;">
+<div class="progress bg-white border rounded border-dark" style="margin: 5px;">
+    <div class="progress-bar bg-danger" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.Width;">
         @ViewBag.Width
     </div>
 </div>
@@ -36,54 +36,62 @@
 
             <input type="hidden" asp-for="PracticeLogID" />
             <input type="hidden" asp-for="PracticeStartTime" />
-            @*My buttons. Start submits the practice beginning time to the DB, 
-                Stop opens Practice Details page
-                I want the Start button to do both - Submit info to the database
-                and launch the stopwatch, but I experience some problems with that 
-                so more work here has to be done*@
-            <div id="actions">
-                <button type="submit" class="btn btn-primary">
+           
+            <div >
+                <button type="submit" class="btn btn-primary text-white">
                     Start
                 </button>
                 <a asp-action="Stop" asp-controller="PracticeLog"
-                   class="btn btn-danger ">Stop</a>
+                   class="btn btn-danger text-white">Stop</a>
             </div>
         </div>
     </form>
 </div>
 
-<table class="table table-bordered table-striped table-dark">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Day</th>
-            <th>Duration</th>
-            <th>Note</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (PracticeLog p in ViewBag.Practices)
-        {
+
+@if (ViewBag.Practices != null)
+{
+    <table class="table table-bordered table-striped table-dark">
+        <thead>
             <tr>
-                <td>@p.Date.ToShortDateString()</td>
-                <td>@p.DayOfWeek</td>
-                <td>@p.Duration</td>
-                <td>@p.Note</td>
-                <td></td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@p.PracticeLogID">
-                        <i class="fas fa-edit text-white"></i>
-                    </a>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@p.PracticeLogID">
-                        <i class="fas fa-trash-alt text-danger"></i>
-                    </a>
-                </td>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Duration</th>
+                <th>Note</th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+
+            @foreach (PracticeLog p in ViewBag.Practices)
+            {
+                <tr>
+                    <td>@p.Date.ToShortDateString()</td>
+                    <td>@p.DayOfWeek</td>
+                    <td>@p.Duration</td>
+                    <td>@p.Note</td>
+                    <td></td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@p.PracticeLogID">
+                            <i class="fas fa-edit text-white"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@p.PracticeLogID">
+                            <i class="fas fa-trash-alt text-danger"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+
+    <p>Start practicing to view your Practice Log</p>
+}
+

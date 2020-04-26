@@ -57,18 +57,19 @@
     <a class="nav-link"
     asp-controller="Home" asp-action="ContactUs">Contact Us</a>
     </li>-->
-
+                    </ul>
+                    <ul class="nav navbar-nav ml-auto">
 
                         @using Microsoft.AspNetCore.Identity
                         @inject SignInManager<User> signInManager
 
                         @if (signInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item ">
+                            <li class="nav-item ml-auto">
                                 <form method="post" asp-action="Logout" asp-controller="Account">
-                                    <input type="submit" value="Logout"
-                                            class="btn btn-info action-button text-white" />
                                     <span class="text-dark">@User.Identity.Name</span>
+                                    <input type="submit" value="Log Out"
+                                           class="btn btn-info action-button text-white ml-3" />
                                 </form>
                             </li>
                         }
@@ -84,8 +85,8 @@
                                       class="btn btn-info action-button text-white">Log In</a>
                             </li>
                         }
-
                     </ul>
+                   
                 </div>
             </div>
         </nav>

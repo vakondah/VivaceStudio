@@ -73,6 +73,11 @@ button {
     box-shadow: 10px 3px 20px -1px rgba(0,0,0,0.22);
 }
 
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+    float: right;
+}
+
 
 
 

@@ -54,7 +54,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             var user = context.Users
                 .Include(s => s.School)
                 .Include(i => i.Instrument)
-                .FirstOrDefault(i => i.UserID == id);
+                .FirstOrDefault(i => i.Id == id);
             Image img = context.Images
                 .Where(i => i.UserID == id)
                 .FirstOrDefault();
@@ -70,12 +70,11 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProfilePicture(string id = "1")
+        public async Task<IActionResult> ProfilePicture()
         {
-            
+            var user = await userManager.GetUserAsync(User);
             Image image = context.Images
-                
-                .Where(i => i.UserID == id)
+                .Where(i => i.UserID == user.Id)
                 .FirstOrDefault();
             if (image != null)
             {
@@ -89,35 +88,57 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveImage(Image image)
+        public async Task<IActionResult> SaveImage(Image image)
         {
-
+            var user = await userManager.GetUserAsync(User);
 
             foreach (var file in Request.Form.Files)
             {
-                //Image object is created and its properties set
-                Image img2 = new Image
+                if (image.UserID == null)
                 {
-                    ImageTitle = file.FileName,
-                    ImageID = image.ImageID,
-                    UserID = image.UserID
-                };
-                
+                    //Image object is created and its properties set
+                    Image img2 = new Image
+                    {
+                        ImageTitle = file.FileName,
+                        ImageID = image.ImageID,
+                        UserID = user.Id
+                    };
 
-                //To grab the image data the code creates a 
-                //MemoryStream and copies the uploaded image data into it using the CopyTo() method
-                MemoryStream ms = new MemoryStream();
-                file.CopyTo(ms);
+                    //To grab the image data the code creates a 
+                    //MemoryStream and copies the uploaded image data into it using the CopyTo() method
+                    MemoryStream ms = new MemoryStream();
+                    file.CopyTo(ms);
 
-                //MemoryStream is converted into a byte array using its ToArray() method.
-                //This byte array is stored in the ImageData property of the Image object.
-                img2.ImageData = ms.ToArray();
-                
-                ms.Close();
-                ms.Dispose();
+                    //MemoryStream is converted into a byte array using its ToArray() method.
+                    //This byte array is stored in the ImageData property of the Image object.
+                    img2.ImageData = ms.ToArray();
 
-                context.Images.Update(img2);
-                context.SaveChanges();
+                    ms.Close();
+                    ms.Dispose();
+
+                    context.Images.Add(img2);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    Image img2 = new Image
+                    {
+                        ImageTitle = file.FileName,
+                        ImageID = image.ImageID,
+                        UserID = image.UserID
+                    };
+
+                    MemoryStream ms = new MemoryStream();
+                    file.CopyTo(ms);
+
+                    img2.ImageData = ms.ToArray();
+
+                    ms.Close();
+                    ms.Dispose();
+
+                    context.Images.Update(img2);
+                    context.SaveChanges();
+                }
             }
 
             Image img = context.Images.OrderByDescending(i => i.ImageID).FirstOrDefault();

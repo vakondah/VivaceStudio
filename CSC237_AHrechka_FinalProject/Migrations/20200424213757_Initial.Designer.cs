@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CSC237_AHrechka_FinalProject.Migrations
 {
     [DbContext(typeof(VivaceContext))]
-    [Migration("20200424200212_FKinPracticeLogChanged")]
-    partial class FKinPracticeLogChanged
+    [Migration("20200424213757_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -91,7 +91,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
 
             modelBuilder.Entity("CSC237_AHrechka_FinalProject.Models.PracticeLog", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("PracticeLogID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
@@ -112,13 +112,15 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     b.Property<DateTime>("PracticeEndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PracticeLogID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PracticeStartTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("PracticeLogID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("PracticeLog");
                 });
@@ -318,11 +320,11 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7028af38-e34c-4a66-ae40-4f22e6af253d",
+                            Id = "8daa80d2-c4dd-4a71-be0a-b326c576ae00",
                             AccessFailedCount = 0,
                             Address = "9999 E Orange St, Aurora, CO, 80011",
                             Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.",
-                            ConcurrencyStamp = "719f6b48-2ce8-4014-a216-9cfa1fc6f75f",
+                            ConcurrencyStamp = "45b38971-f1d3-4f3f-8f48-ee063c251228",
                             DateOfBirth = new DateTime(2000, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Aliaksandra",
@@ -333,7 +335,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                             Phone = "970-777-7777",
                             PhoneNumberConfirmed = false,
                             SchoolID = "RA",
-                            SecurityStamp = "d5cc94ed-e70c-4da5-b16c-9d22c98174bf",
+                            SecurityStamp = "75b81d23-cde6-4657-8908-07e6ea795d3d",
                             StudentNumber = 1010,
                             TeacherID = "500",
                             TwoFactorEnabled = false,
@@ -341,11 +343,11 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                         },
                         new
                         {
-                            Id = "cdc67bdd-d9a9-4194-9d32-09b2625c271c",
+                            Id = "48792bae-956f-4a57-b5bb-d578f57ed457",
                             AccessFailedCount = 0,
                             Address = "367 S Limone St, Denver, CO, 80235",
                             Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.",
-                            ConcurrencyStamp = "22fa2d35-ae8f-4ae2-afec-e9e33064603c",
+                            ConcurrencyStamp = "4e981466-d168-4b6b-87a0-97c362cc4b22",
                             DateOfBirth = new DateTime(2007, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Stacy",
@@ -356,7 +358,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                             Phone = "720-303-6367",
                             PhoneNumberConfirmed = false,
                             SchoolID = "HSM",
-                            SecurityStamp = "29a69089-3a10-469a-bcf5-4e8c0852df40",
+                            SecurityStamp = "3e40bf73-65ca-4e68-8e3c-67297fbed258",
                             StudentNumber = 1011,
                             TeacherID = "300",
                             TwoFactorEnabled = false,
@@ -506,9 +508,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                 {
                     b.HasOne("CSC237_AHrechka_FinalProject.Models.User", "User")
                         .WithMany("MyPractices")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("CSC237_AHrechka_FinalProject.Models.User", b =>

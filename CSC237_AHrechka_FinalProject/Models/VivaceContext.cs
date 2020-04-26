@@ -163,7 +163,7 @@ namespace CSC237_AHrechka_FinalProject.Models
             modelBuilder.Entity<PracticeLog>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.MyPractices)
-                .HasForeignKey(e => e.Id);
+                .HasForeignKey(e => e.UserID);
             
         }
     }
