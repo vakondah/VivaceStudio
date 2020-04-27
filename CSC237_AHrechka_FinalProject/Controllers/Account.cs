@@ -1,4 +1,7 @@
-﻿using CSC237_AHrechka_FinalProject.Models;
+﻿//CSC237
+//Aliaksandra Hrechka
+//04/26/2020
+using CSC237_AHrechka_FinalProject.Models;
 using CSC237_AHrechka_FinalProject.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

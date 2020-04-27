@@ -1,18 +1,20 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/19/2020
+//04/26/2020
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CSC237_AHrechka_FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CSC237_AHrechka_FinalProject.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private VivaceContext context;

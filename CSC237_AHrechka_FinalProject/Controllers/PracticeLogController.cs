@@ -1,7 +1,8 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/19/2020
+//04/26/2020
 using CSC237_AHrechka_FinalProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace CSC237_AHrechka_FinalProject.Controllers
 {
+    [Authorize]
     public class PracticeLogController: Controller
     {
         
