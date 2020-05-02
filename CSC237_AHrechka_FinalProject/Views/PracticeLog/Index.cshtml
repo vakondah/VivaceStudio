@@ -6,6 +6,7 @@
 
 <h2>Practice Log</h2>
 
+
 <p>Your desired practice time is 30 minutes.</p>
 <p>Your average practice time is @ViewBag.Average</p>
 <div class="progress bg-white border rounded border-dark" style="margin: 5px;">
@@ -14,44 +15,52 @@
     </div>
 </div>
 
-<div id="start">
-    <div id="counter">
-        <div id="hours" class="unit"></div>
-        <div class="divider">:</div>
-        <div id="minutes" class="unit"></div>
-        <div class="divider">:</div>
-        <div id="seconds" class="unit"></div>
-        <div class="divider">:</div>
-        <div id="centiseconds" class="unit"></div>
-    </div>
-    @*Original buttons:*@
-    <div id="actions">
-        <a href="#start" class="btn"><i class="fa fa-play"></i></a>
-        <a href="#paused" class="btn"><i class="fa fa-pause"></i></a>
-        <a href="" class="btn"><i class="fa fa-stop"></i></a>
-    </div>
-
-    <form asp-action="Start" method="post">
-        <div>
-
-            <input type="hidden" asp-for="PracticeLogID" />
-            <input type="hidden" asp-for="PracticeStartTime" />
-           
-            <div >
-                <button type="submit" class="btn btn-primary text-white">
-                    Start
-                </button>
-                <a asp-action="Stop" asp-controller="PracticeLog"
-                   class="btn btn-danger text-white">Stop</a>
+<div class="row shadow-lg mt-4">
+    <div class="col col-md-6 mb-3 mt-3 ">
+        <div id="start">
+            <h4>Stopwatch</h4>
+            <div id="counter">
+                <div id="hours" class="unit"></div>
+                <div class="divider">:</div>
+                <div id="minutes" class="unit"></div>
+                <div class="divider">:</div>
+                <div id="seconds" class="unit"></div>
+                <div class="divider">:</div>
+                <div id="centiseconds" class="unit"></div>
+            </div>
+            @*Original buttons:*@
+            <div id="actions">
+                <a href="#start" class="btn"><i class="fa fa-play"></i></a>
+                <a href="#paused" class="btn"><i class="fa fa-pause"></i></a>
+                <a href="" class="btn"><i class="fa fa-stop"></i></a>
             </div>
         </div>
-    </form>
+    </div>
+
+    <div class="col col-md-6 mb-3 mt-3 " >
+        <h4 class="mb-4">Practice Log Controls</h4>
+        <form asp-action="Start" method="post">
+            <div>
+
+                <input type="hidden" asp-for="PracticeLogID" />
+                <input type="hidden" asp-for="PracticeStartTime" />
+
+                <div>
+                    <button type="submit" class="btn btn-primary pl-3 pr-3 text-white">
+                        Start
+                    </button>
+                    <a asp-action="Stop" asp-controller="PracticeLog"
+                       class="btn btn-danger pl-3 pr-3 text-white">Stop</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    
 </div>
 
 
-@if (ViewBag.Practices != null)
-{
-    <table class="table table-bordered table-striped table-dark">
+
+    <table class="table table-bordered table-striped table-dark mt-4">
         <thead>
             <tr>
                 <th>Date</th>
@@ -88,10 +97,6 @@
             }
         </tbody>
     </table>
-}
-else
-{
 
-    <p>Start practicing to view your Practice Log</p>
-}
+
 

@@ -1,0 +1,18 @@
+﻿@model User
+<div class="highlight-clean">
+    <div class="container">
+        <div class="jumbotron">
+            <h2 class="text-center text-white">Confirm Deletion</h2>
+        </div>
+        <p class="text-dark">
+            Your account will be permanently deleted.<br />
+            Would you like to remove your account?>
+        </p>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-primary">Yes</button>
+            <a asp-action="AccountSettings" asp-controller="Profile" class="btn btn-light">No</a>
+        </form>
+    </div>
+</div>

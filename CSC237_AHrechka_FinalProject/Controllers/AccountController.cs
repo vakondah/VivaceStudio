@@ -12,15 +12,17 @@ using System.Threading.Tasks;
 
 namespace CSC237_AHrechka_FinalProject.Controllers
 {
-    public class Account : Controller
+    public class AccountController : Controller
     {
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
+        private VivaceContext context;
 
-        public Account(UserManager<User> userMngr, SignInManager<User> signInMngr)
+        public AccountController(UserManager<User> userMngr, SignInManager<User> signInMngr, VivaceContext ctx)
         {
             userManager = userMngr;
             signInManager = signInMngr;
+            context = ctx;
         }
 
         [HttpGet]
@@ -90,6 +92,42 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        
+        public IActionResult RemoveAccount()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Delete()
+        {
+            //get current user
+            var user = await userManager.GetUserAsync(User);
+
+            //Sign user out
+            await signInManager.SignOutAsync();
+
+            //Delete user's image:
+            Image img = context.Images
+               .Where(i => i.UserID == user.Id)
+               .FirstOrDefault();
+
+            if (img != null)
+            {
+                context.Images.Remove(img);
+            }
+
+            //delete user:
+            if (user != null)
+            {
+                IdentityResult result = await userManager.DeleteAsync(user);
+            }
+            
+            return RedirectToAction("Index", "Home");
+        }
+
+
 
     }
 }

@@ -57,6 +57,12 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 .Include(s => s.School)
                 .Include(i => i.Instrument)
                 .FirstOrDefault(i => i.Id == id);
+
+            if (user.School == null || user.Instrument == null)
+            {
+                TempData["alert"] = "Please, fill out your school information to view your card";
+            }
+
             Image img = context.Images
                 .Where(i => i.UserID == id)
                 .FirstOrDefault();
@@ -175,7 +181,6 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveSchoolInfo(User user)
         {
-           
             if (ModelState.IsValid)
             {
                 var newUser = await userManager.GetUserAsync(User);
