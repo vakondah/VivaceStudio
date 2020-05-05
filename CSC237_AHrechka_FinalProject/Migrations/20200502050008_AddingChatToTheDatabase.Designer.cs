@@ -4,14 +4,16 @@ using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSC237_AHrechka_FinalProject.Migrations
 {
     [DbContext(typeof(VivaceContext))]
-    partial class VivaceContextModelSnapshot : ModelSnapshot
+    [Migration("20200502050008_AddingChatToTheDatabase")]
+    partial class AddingChatToTheDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,9 +99,6 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TimeSent")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
@@ -346,11 +345,11 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9e0cc75b-bd26-4946-81df-d86616a6de2f",
+                            Id = "1acb196b-794b-4335-b859-ff5f1635b41f",
                             AccessFailedCount = 0,
                             Address = "9999 E Orange St, Aurora, CO, 80011",
                             Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.",
-                            ConcurrencyStamp = "fb659f9b-8503-44d3-aa2e-4ccd6e987c9e",
+                            ConcurrencyStamp = "cf8d2d94-82f1-4d37-b1a1-73adfb647c83",
                             DateOfBirth = new DateTime(2000, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Aliaksandra",
@@ -361,7 +360,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                             Phone = "970-777-7777",
                             PhoneNumberConfirmed = false,
                             SchoolID = "RA",
-                            SecurityStamp = "6711dc6d-f634-43b8-b5fb-adf2dcca9ef4",
+                            SecurityStamp = "089c1f6d-80db-4f9c-a7a8-1eae1f0d6c56",
                             StudentNumber = 1010,
                             TeacherID = "500",
                             TwoFactorEnabled = false,
@@ -369,11 +368,11 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                         },
                         new
                         {
-                            Id = "ebdd96d6-3331-49b4-a5ef-b63a4e3c74ca",
+                            Id = "bc3fea00-1a32-4c4e-8cd6-5546fb76677c",
                             AccessFailedCount = 0,
                             Address = "367 S Limone St, Denver, CO, 80235",
                             Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.",
-                            ConcurrencyStamp = "57c3c958-1977-4a5c-b171-35049ce3824b",
+                            ConcurrencyStamp = "5adc3623-af62-4dc6-9a23-1b2bf105458b",
                             DateOfBirth = new DateTime(2007, 12, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EmailConfirmed = false,
                             FirstName = "Stacy",
@@ -384,7 +383,7 @@ namespace CSC237_AHrechka_FinalProject.Migrations
                             Phone = "720-303-6367",
                             PhoneNumberConfirmed = false,
                             SchoolID = "HSM",
-                            SecurityStamp = "c19e3d26-b5fe-4e62-839c-505328355404",
+                            SecurityStamp = "d70e44df-3705-4c81-bcd9-0440515419db",
                             StudentNumber = 1011,
                             TeacherID = "300",
                             TwoFactorEnabled = false,

@@ -41,9 +41,31 @@ namespace CSC237_AHrechka_FinalProject.Controllers
 
             User currentUser = await userManager.GetUserAsync(User);
             users.Remove(currentUser);
-            ViewBag.CurrentUser = currentUser.FullName;
+            
+            ViewBag.ChatUsers = users;
 
-            return View(users);
+            var messages = await context.Messages.ToListAsync();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CurrentUser = currentUser.FullName;
+            }
+
+            return View(messages);
+        }
+
+        public async Task<IActionResult> CreateMessage(Message message)
+        {
+            User user = await userManager.GetUserAsync(User);
+
+            if (ModelState.IsValid)
+            {
+                message.UserName = user.FullName;
+                message.UserID = user.Id;
+                await context.Messages.AddAsync(message);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
         

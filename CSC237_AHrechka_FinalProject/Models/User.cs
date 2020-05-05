@@ -38,6 +38,13 @@ namespace CSC237_AHrechka_FinalProject.Models
 
         public ICollection<PracticeLog> MyPractices { get; set; }
 
+        public virtual ICollection<Message> Messages { get; set; }
+
+        public User()
+        {
+            Messages = new HashSet<Message>();
+        }
+
         public string FullName => FirstName + " " + LastName;
         public int Age => Convert.ToInt32(DateTime.Now.Year - DateOfBirth.Year);
     }

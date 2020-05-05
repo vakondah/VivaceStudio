@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CSC237_AHrechka_FinalProject.Models;
+using CSC237_AHrechka_FinalProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -171,12 +172,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             return View();
         }
 
-       // opens account settings page:
-       [Route("Settings/Account")]
-        public IActionResult AccountSettings()
-        {
-            return View();
-        }
+       
 
         [HttpPost]
         public async Task<IActionResult> SaveSchoolInfo(User user)

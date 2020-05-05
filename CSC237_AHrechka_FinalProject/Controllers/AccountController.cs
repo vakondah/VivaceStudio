@@ -36,7 +36,13 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username };
+                var user = new User 
+                {
+                    UserName = model.Username,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -91,6 +97,48 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        // opens account settings page:
+        [Route("Settings/Account")]
+        [HttpGet]
+        public async Task<IActionResult> AccountSettings()
+        {
+            var user = await userManager.GetUserAsync(User);
+
+            ChangePasswordViewModel model = new ChangePasswordViewModel
+            {
+                Id = user.Id,
+                Email = user.Email
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await userManager.GetUserAsync(User);
+
+                var result = await userManager.ChangePasswordAsync(user, model.OldPassword,
+                                                        model.NewPassword);
+                if (result.Succeeded)
+                {
+                    TempData["message"] = "Your password was successfully changed";
+                    model.OldPassword = "";
+                    return RedirectToAction("AccountSettings");
+                }
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View("AccountSettings", model);
         }
 
         

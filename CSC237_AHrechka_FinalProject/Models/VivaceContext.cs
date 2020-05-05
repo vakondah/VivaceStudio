@@ -23,7 +23,8 @@ namespace CSC237_AHrechka_FinalProject.Models
         public DbSet<Image> Images { get; set; }
 
         public DbSet<PracticeLog> PracticeLog{ get; set; }
-        
+        public DbSet<Message> Messages { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -160,10 +161,17 @@ namespace CSC237_AHrechka_FinalProject.Models
                 .HasOne(e => e.User)
                 .WithMany(e => e.Images)
                 .HasForeignKey(e => e.UserID);
+
             modelBuilder.Entity<PracticeLog>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.MyPractices)
                 .HasForeignKey(e => e.UserID);
+
+            //1 to many relationship between User and Messages
+            modelBuilder.Entity<Message>()
+                .HasOne<User>(u => u.Sender)
+                .WithMany(m => m.Messages)
+                .HasForeignKey(u => u.UserID);
             
         }
     }
