@@ -1,6 +1,5 @@
 ﻿<!--Main layout with nav bar and footer-->
 
-
 @{
     string controller =
         ViewContext.RouteData.Values["controller"].ToString();
@@ -27,7 +26,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-button shadow-sm">
             <div class="container">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">Vivace Studuo</a>
                 <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler">
@@ -35,58 +34,22 @@
                 </button>
                 <div class="collapse navbar-collapse"
                      id="navcol-1">
-                    <ul class="nav navbar-nav mr-auto">
-                        <li role="presentation" class="nav-item">
-                            <a class="nav-link @(controller == "Home" && action == "Index" ? "active" : "")"
+                    <div class="nav navbar-nav mr-auto">
+                        
+                            <a class="nav-item nav-link @(controller == "Home" && action == "Index" ? "active" : "")"
                                asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <!--TODO:<li role="presentation" class="nav-item">
-    <a class="nav-link" href="#">Schools</a>
-    </li>-->
-                        <li role="presentation" class="nav-item">
-                            <a class="nav-link  @(controller == "Chat" ? "active" : "")"
+
+                            <a class="nav-item nav-link  @(controller == "Chat" ? "active" : "")"
                                asp-controller="Chat" asp-action="Index">Chat</a>
-                        </li>
-                        <li role="presentation" class="nav-item">
-                            <a class="nav-link  @(controller == "PracticeLog" ? "active" : "")"
+                    
+                            <a class="nav-item nav-link  @(controller == "PracticeLog" ? "active" : "")"
                                asp-controller="PracticeLog" asp-action="Index">Practice Log</a>
-                        </li>
-                        <li role="presentation" class="nav-item">
-                            <a class="nav-link  @(controller == "Profile" ? "active" : "")"
+                       
+                            <a class="nav-item nav-link  @(controller == "Profile" ? "active" : "")"
                                asp-controller="Profile" asp-action="PersonalInfo">My Profile</a>
-                        </li>
-                        <!--<li role="presentation" class="nav-item">
-    <a class="nav-link"
-    asp-controller="Home" asp-action="ContactUs">Contact Us</a>
-    </li>-->
-                    </ul>
+                    </div>
                     <ul class="nav navbar-nav ml-auto">
-
-                        @using Microsoft.AspNetCore.Identity
-                        @inject SignInManager<User> signInManager
-
-                        @if (signInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item ml-auto">
-                                <form method="post" asp-action="Logout" asp-controller="Account">
-                                    <span class="text-dark">@User.Identity.Name</span>
-                                    <input type="submit" value="Log Out"
-                                           class="btn btn-info action-button text-white ml-3" />
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            var action1 = ViewContext.RouteData.Values["action"]?.ToString();
-                            <li class="nav-item">
-                                <a asp-action="Register" asp-controller="Account"
-                                   class="nav-link">Register</a>
-                             </li>
-                             <li class="nav-item">
-                                   <a asp-action="Login" asp-controller="Account"
-                                      class="btn btn-info action-button text-white">Log In</a>
-                            </li>
-                        }
+                        <vc:login-logout user="@User" />
                     </ul>
                    
                 </div>
@@ -95,20 +58,13 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @if (TempData.Keys.Contains("message"))
-            {
-                <h4 class="bg-success text-center text-white p-2 rounded">
-                    @TempData["message"]
-                </h4>
-            }
-            @RenderBody()
+            <my-temp-message/>
+             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            <p>&copy; 2020 - CSC237_AHrechka_FinalProject </p>
-        </div>
+        <vc:copyright/>
     </footer>
 </body>
 </html>

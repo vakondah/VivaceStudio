@@ -44,7 +44,11 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             
             ViewBag.ChatUsers = users;
 
-            var messages = await context.Messages.ToListAsync();
+            var messages = await context.Messages
+                .OrderByDescending(m => m.MessageID)
+                .Take(5)
+                .ToListAsync();
+
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.CurrentUser = currentUser.FullName;
