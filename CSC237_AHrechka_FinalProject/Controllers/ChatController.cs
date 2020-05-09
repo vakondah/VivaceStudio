@@ -1,13 +1,11 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/26/2020
+//05/08/2020
 using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,21 +27,14 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             signInManager = signInMngr;
         }
 
+        //This action displays last 5 messages from the chat.
+        //List of users displayed by UsersWithImages View Component.
         public async Task<IActionResult> Index()
         {
             ViewBag.Title = "Chatting Room";
 
-            List<User> users = new List<User>();
-            foreach (User user in userManager.Users)
-            {
-                users.Add(user);
-            }
-
             User currentUser = await userManager.GetUserAsync(User);
-            users.Remove(currentUser);
-            
-            ViewBag.ChatUsers = users;
-
+                        
             var messages = await context.Messages
                 .OrderByDescending(m => m.MessageID)
                 .Take(5)
@@ -57,6 +48,8 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             return View(messages);
         }
 
+
+        // This action saves message to the database:
         public async Task<IActionResult> CreateMessage(Message message)
         {
             User user = await userManager.GetUserAsync(User);

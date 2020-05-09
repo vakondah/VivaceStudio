@@ -1,15 +1,11 @@
 //CSC237
 //Aliaksandra Hrechka
-//04/26/2020
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+//05/08/2020
+
 using CSC237_AHrechka_FinalProject.Hubs;
 using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +38,7 @@ namespace CSC237_AHrechka_FinalProject
 
             services.AddControllersWithViews();
             services.AddSignalR();
+
             // makes URL lowercase with trailing slashes
             services.AddRouting(options =>
             {
@@ -50,7 +47,6 @@ namespace CSC237_AHrechka_FinalProject
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // if statement is checking if we are running in development mode:
@@ -61,7 +57,6 @@ namespace CSC237_AHrechka_FinalProject
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

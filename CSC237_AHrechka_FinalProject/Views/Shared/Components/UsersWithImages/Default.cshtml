@@ -1,0 +1,34 @@
+﻿@model Dictionary<User, string>
+
+    <div class="col-sm-5 border-right">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Users:</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                <tr>
+                    @if (user.Value == "")
+                    {
+                    <td><img src="~/Pictures/default_image.png" class="avatar p-0" /></td>
+                    }
+                    else
+                    {
+                        <td><img src="@user.Value" class="avatar p-0" /></td>
+                        
+                    }
+
+                    <td>
+                        <a asp-controller="Profile"
+                           asp-action="Card"
+                           asp-route-id="@user.Key.Id">@user.Key.FullName</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>

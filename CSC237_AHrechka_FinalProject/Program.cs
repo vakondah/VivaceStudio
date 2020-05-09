@@ -1,14 +1,9 @@
 //CSC237
 //Aliaksandra Hrechka
-//04/26/2020
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+//05/08/2020
+
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace CSC237_AHrechka_FinalProject
 {

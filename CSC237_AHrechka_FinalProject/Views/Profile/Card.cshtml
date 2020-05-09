@@ -3,22 +3,24 @@
 @{
     ViewData["Title"] = "Personal Card";
 }
-@if (TempData.Keys.Contains("alert"))
-{
-    <h4 class="bg-danger text-center text-white p-2 rounded">
-        @TempData["alert"]
-    </h4>
-}
+
+    <my-alert-message/>
 
 <div class="row">
     <div class="col">
         <div class="jumbotron">
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                    <a asp-action="PersonalInfo"
-                       class="close text-right text-white d-none d-sm-inline d-md-none d-lg-none d-xl-none m-3">
-                        <span aria-hidden="true">×</span>
-                    </a>
+
+                        <a asp-action="PersonalInfo"
+                           class="close text-right text-white d-none d-sm-inline d-md-none d-lg-none d-xl-none m-3">
+                            <span aria-hidden="true">×</span>
+                        </a>
+                   
+                        <a asp-action="Index" asp-controller="Chat"
+                           class="close text-right text-white d-none d-sm-inline d-md-none d-lg-none d-xl-none m-3">
+                            <span aria-hidden="true">×</span>
+                        </a>
 
                     @if (ViewBag.ImageDataUrl == null)
                     {
@@ -71,67 +73,76 @@
         </div>
     </div>
 </div>
-<div class="col-sm-12 col-md-12 col-lg-6">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">School</h5>
+    <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">School</h5>
+            </div>
+            @if (Model.School == null)
+            {
+                <div class="card-body">
+                    <p class="card-text">Unknown School</p>
+                </div>
+            }
+            else
+            {
+                <div class="card-body">
+                    <p class="card-text">@Model.School.SchoolName</p>
+                </div>
+            }
+
         </div>
-        @if (Model.School == null)
-        {
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Instrument</h5>
+            </div>
+
+            @if (Model.Instrument == null)
+            {
+                <div class="card-body">
+                    <p class="card-text">Unknown Instrument</p>
+                </div>
+            }
+            else
+            {
+                <div class="card-body">
+                    <p class="card-text">@Model.Instrument.InstrumentName</p>
+                </div>
+            }
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Classes</h5>
+            </div>
             <div class="card-body">
-                <p class="card-text">Unknown School</p>
+                <p class="card-text">@Model.MyClasses</p>
+            </div>
+        </div>
+
+        @if (Model.ShowAge == true)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Age</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.Age</p>
+                </div>
             </div>
         }
-        else
+
+        @if (Model.ShowPhoneNumber == true)
         {
-            <div class="card-body">
-                <p class="card-text">@Model.School.SchoolName</p>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Phone Number</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.Phone</p>
+                </div>
             </div>
         }
 
     </div>
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">Instrument</h5>
-        </div>
-
-        @if (Model.Instrument == null)
-        {
-            <div class="card-body">
-                <p class="card-text">Unknown Instrument</p>
-            </div>
-        }
-        else
-        {
-            <div class="card-body">
-                <p class="card-text">@Model.Instrument.InstrumentName</p>
-            </div>
-        }
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">Classes</h5>
-        </div>
-        <div class="card-body">
-            <p class="card-text">@Model.MyClasses</p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">Age</h5>
-        </div>
-        <div class="card-body">
-            <p class="card-text">@Model.Age</p>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-header">
-            <h5 class="mb-0">Phone Number</h5>
-        </div>
-        <div class="card-body">
-            <p class="card-text">@Model.Phone</p>
-        </div>
-    </div>
-</div>
 </div>
 

@@ -15,13 +15,10 @@ namespace CSC237_AHrechka_FinalProject.Models
 
         }
         
-       // public DbSet<User> Users { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
-       
         public DbSet<Image> Images { get; set; }
-
         public DbSet<PracticeLog> PracticeLog{ get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -31,44 +28,6 @@ namespace CSC237_AHrechka_FinalProject.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    UserID = "1",
-                    StudentNumber = 1010,
-                    //AccountID = 1,
-                    FirstName = "Aliaksandra",
-                    LastName = "Hrechka",
-                    DateOfBirth = DateTime.Parse("2000-01-08"),
-                    Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus." +
-                         " Praesent aliquam in tellus eu.",
-                    Address = "9999 E Orange St, Aurora, CO, 80011",
-                    //Email = "ahrechka@mail.com",
-                    Phone = "970-777-7777",
-                    SchoolID = "RA",
-                    TeacherID = "500",
-                    InstrumentID = "gtr",
-                    MyClasses = "Guitar, Choir"
-                },
-                new User
-                {
-                    UserID = "2",
-                    StudentNumber = 1011,
-                    //AccountID = 2,
-                    FirstName = "Stacy",
-                    LastName = "Miller",
-                    DateOfBirth = DateTime.Parse("2007-12-18"),
-                    Bio = "Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus." +
-                            " Praesent aliquam in tellus eu.",
-                    Address = "367 S Limone St, Denver, CO, 80235",
-                    //Email = "smiller16@mail.com",
-                    Phone = "720-303-6367",
-                    SchoolID = "HSM",
-                    TeacherID = "300",
-                    InstrumentID = "pno",
-                    MyClasses = "Piano, Choir"
-                });
             modelBuilder.Entity<Teacher>().HasData(
                  new Teacher
                  {
@@ -123,6 +82,7 @@ namespace CSC237_AHrechka_FinalProject.Models
                     SchoolID = "CPS",
                     SchoolName = "Centennial Piano School"
                 });
+
             modelBuilder.Entity<Instrument>().HasData(
                new Instrument
                {

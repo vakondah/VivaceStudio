@@ -1,13 +1,11 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/26/2020
+//05/08/2020
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CSC237_AHrechka_FinalProject.Models;
-using CSC237_AHrechka_FinalProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,15 +27,14 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             signInManager = signInMngr;
         }
 
-       
         // opens Personal Info page and passes users info from the db to view:
         [Route("Profile")]
         public async Task<IActionResult> PersonalInfo()
         {
             var user = await userManager.GetUserAsync(User);
-           
             return View(user);
         }
+
 
         // opens view and fills out ViewBags to be passed to the view:
         [Route("Profile/School")]
@@ -45,9 +42,9 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             StoreLists();
-           
             return View(user);
         }
+
 
         // opens personal student's card and passes student info:
         [Route("Profile/Card")]
@@ -75,8 +72,8 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 ViewBag.ImageDataUrl = imageDataURL;
             }
             return View(user);
-
         }
+
 
         [HttpGet]
         public async Task<IActionResult> ProfilePicture()
@@ -93,8 +90,8 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 return View(image);
             }
             return View();
-
         }
+
 
         [HttpPost]
         public async Task<IActionResult> SaveImage(Image image)
@@ -158,21 +155,6 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             return RedirectToAction("ProfilePicture");
         }
 
-        // opens practice log settings page:
-        [Route("Settings/Log")]
-        public IActionResult PracticeLogSettings()
-        {
-            return View();
-        }
-
-        // opens chat settings page:
-        [Route("Settings/Chat")]
-        public IActionResult ChatSettings()
-        {
-            return View();
-        }
-
-       
 
         [HttpPost]
         public async Task<IActionResult> SaveSchoolInfo(User user)
@@ -198,8 +180,8 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 StoreLists();
                 return RedirectToAction("SchoolInfo", user);
             }
-            
         }
+
 
         [HttpPost]
         public async Task<IActionResult> SavePersonalInfo(User user)
@@ -216,6 +198,8 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 newUser.Bio = user.Bio;
                 newUser.Address = user.Address;
                 newUser.Phone = user.Phone;
+                newUser.ShowPhoneNumber = user.ShowPhoneNumber;
+                newUser.ShowAge = user.ShowAge;
 
                 await userManager.UpdateAsync(newUser);
                 context.SaveChanges();
@@ -228,6 +212,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 return RedirectToAction("PersonalInfo", user);
             }
         }
+
         
         private void StoreLists()
         {
@@ -241,8 +226,5 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 .OrderBy(l => l.LastName)
                 .ToList();
         }
-
-        
-
     }
 }

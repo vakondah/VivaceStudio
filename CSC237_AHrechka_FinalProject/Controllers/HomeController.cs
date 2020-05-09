@@ -1,6 +1,6 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/26/2020
+//05/08/2020
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,8 +19,14 @@ namespace CSC237_AHrechka_FinalProject.Controllers
         {
             return View();
         }
-        
-      
-        
+
+        // opens About page:
+        public IActionResult About()
+        {
+            return View();
+        }
+
+
+
     }
 }

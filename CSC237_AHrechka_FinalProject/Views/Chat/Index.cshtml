@@ -1,34 +1,15 @@
 ﻿@model IEnumerable<Message>
-@{ 
+@{
     ViewData["Title"] = "Chatting Room";
     var userName = ViewBag.CurrentUser;
+}
+@section scripts{
+    <partial name="_SignalRScriptsPartial" />
 }
 
 <h2>Chatting Room</h2>
 <div class="row">
-    <div class="col-sm-5">
-        <table class="table table-bordered ">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Users:</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in ViewBag.ChatUsers)
-                {
-                    <tr>
-                        <td><img src="~/Pictures/default_image.png" class="avatar p-0" /></td>
-                        <td>
-                            <a asp-controller="Profile"
-                               asp-action="Card"
-                               asp-route-id="@user.Id">@user.FullName</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <vc:users-with-images />
     <div class="col-sm-7">
         @if (Model != null)
         {
@@ -51,17 +32,17 @@
                     contcolor = "bg-light";
                     offset = "col-md-6";
                 }
-                    <div class="row">
-                            <div class="@offset">
-                                <span class="@timePosition  text-dark small">
-                                    @message.TimeSent.ToString("M/dd/yyyy hh:MM tt")
-                                </span>
-                                <div class="@containerClass @contcolor rounded-sm">
-                                    <p class="sender @textAlign">@message.UserName</p>
-                                    <p class="@textAlign">@message.Text</p>
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="@offset">
+                        <span class="@timePosition  text-dark small">
+                            @message.TimeSent.ToString("M/dd/yyyy hh:MM tt")
+                        </span>
+                        <div class="@containerClass @contcolor rounded-sm">
+                            <p class="sender @textAlign">@message.UserName</p>
+                            <p class="@textAlign">@message.Text</p>
+                        </div>
                     </div>
+                </div>
             }
         }
         <form asp-action="CreateMessage"
@@ -95,4 +76,3 @@
 
     </div>
 </div>
-       

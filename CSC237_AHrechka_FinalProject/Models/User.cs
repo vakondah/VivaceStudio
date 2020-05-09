@@ -12,16 +12,18 @@ namespace CSC237_AHrechka_FinalProject.Models
     {
         
         public string UserID { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        
         public string Bio { get; set; }
         public string Address { get; set; }
-        //public string Email { get; set; }
         public string Phone { get; set; }
         public int StudentNumber { get; set; }
         public string MyClasses { get; set; }
+        public bool ShowPhoneNumber { get; set; }
+        public bool ShowAge { get; set; }
 
         // navigation property 
         public ICollection<Image> Images { get; set; }

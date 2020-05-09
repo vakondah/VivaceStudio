@@ -1,6 +1,6 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/26/2020
+//05/08/2020
 using CSC237_AHrechka_FinalProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +42,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 TempData["message"] = start;
             }
 
+            // List of practices:
             user.MyPractices = context.PracticeLog
                             .Where(u => u.UserID == user.Id)
                             .Where(u => u.InProgress != true)
@@ -99,8 +100,6 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                 ViewBag.Average = 0;
                 ViewBag.Width = 0;
             }
-
-
             return View();
         }
 
@@ -161,7 +160,6 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                     practice.Duration = $"{span.Minutes} min {span.Seconds} sec";
                 }
 
-
                 return View("PracticeDetails", practice);
             }
             // if session is empty nothing happens
@@ -175,7 +173,6 @@ namespace CSC237_AHrechka_FinalProject.Controllers
                             .ToList();
                 return View("Index");
             }
-            
         }
 
         [HttpGet]
@@ -218,6 +215,7 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             return View(practice);
         }
 
+        // delete practice from the DB
         [HttpPost]
         public RedirectToActionResult Delete(PracticeLog practice)
         {
@@ -227,6 +225,5 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             
             return RedirectToAction("Index");
         }
-
     }
 }

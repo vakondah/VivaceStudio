@@ -1,12 +1,10 @@
 ﻿//CSC237
 //Aliaksandra Hrechka
-//04/26/2020
+//05/08/2020
 using CSC237_AHrechka_FinalProject.Models;
 using CSC237_AHrechka_FinalProject.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -174,8 +172,5 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             
             return RedirectToAction("Index", "Home");
         }
-
-
-
     }
 }

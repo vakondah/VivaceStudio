@@ -2,24 +2,20 @@
 
 @{
     Layout = "_Layout";
-}
-@{
     ViewData["Title"] = "My Profile";
 }
+@RenderSection("scripts", false)
+
 <h2 class="text-center">My Profile</h2>
-<div class="row mt-5">
+<div class="row mt-5 ">
     <div class="col-lg-3 col-sm-12">
         <div class="list-group">
-            <a asp-controller="Profile" asp-action="ProfilePicture" 
+            <a asp-controller="Profile" asp-action="ProfilePicture"
                class="list-group-item">Profile Picture</a>
             <a asp-controller="Profile" asp-action="SchoolInfo"
                class="list-group-item">School Info</a>
             <a asp-controller="Profile" asp-action="PersonalInfo"
                class="list-group-item">Personal Info</a>
-            <a asp-controller="Profile" asp-action="PracticeLogSettings"
-               class="list-group-item">Practice Log Settings</a>
-            <a asp-controller="Profile" asp-action="ChatSettings"
-               class="list-group-item">Chat Settings</a>
             <a asp-controller="Account" asp-action="AccountSettings"
                class="list-group-item">Account Settings</a>
         </div>
