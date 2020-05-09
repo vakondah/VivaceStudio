@@ -5,6 +5,7 @@ using CSC237_AHrechka_FinalProject.Models;
 using CSC237_AHrechka_FinalProject.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -154,10 +155,20 @@ namespace CSC237_AHrechka_FinalProject.Controllers
             //Sign user out
             await signInManager.SignOutAsync();
 
-            //Delete user's image:
+            //Delete user's image and practices:
             Image img = context.Images
                .Where(i => i.UserID == user.Id)
                .FirstOrDefault();
+
+            List<PracticeLog> pl = new List<PracticeLog>();
+            pl = context.PracticeLog
+                .Where(u => u.UserID == user.Id)
+                .ToList();
+
+            foreach (var item in pl)
+            {
+                context.PracticeLog.Remove(item);
+            }
 
             if (img != null)
             {
